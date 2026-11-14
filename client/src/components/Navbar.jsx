@@ -41,15 +41,15 @@ export default function Navbar() {
           ))}
         </nav>
         <button
-          className="md:hidden p-2 rounded-lg text-cream/80 hover:text-cream hover:bg-white/10 transition"
+          className="md:hidden w-11 h-11 flex items-center justify-center rounded-xl text-cream/80 hover:text-cream hover:bg-white/10 active:bg-white/20 transition"
           onClick={() => setOpen(!open)}
           aria-label="Toggle navigation menu"
         >
-          {open ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          {open ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
         </button>
       </div>
       {open && (
-        <div className="md:hidden bg-forest-dark/95 backdrop-blur-lg border-t border-cream/10 px-4 py-4 flex flex-col gap-2 animate-fade-in shadow-2xl">
+        <div className="md:hidden bg-forest-dark/95 backdrop-blur-xl border-t border-cream/10 px-4 py-4 flex flex-col gap-1.5 animate-fade-in shadow-2xl">
           {links.map(l => (
             <NavLink
               key={l.to}
@@ -57,10 +57,10 @@ export default function Navbar() {
               end={l.to === '/'}
               onClick={() => setOpen(false)}
               className={({ isActive }) =>
-                `text-xs font-semibold tracking-wider uppercase px-3 py-2.5 rounded-lg transition ${
+                `text-xs sm:text-sm font-semibold tracking-wider uppercase px-4 py-3 min-h-[44px] flex items-center rounded-xl transition ${
                   isActive
-                    ? 'text-cream bg-white/15 border border-cream/20 font-bold'
-                    : 'text-cream/70 hover:text-cream hover:bg-white/5'
+                    ? 'text-cream bg-white/15 border border-cream/20 font-bold shadow-xs'
+                    : 'text-cream/75 hover:text-cream hover:bg-white/5 active:bg-white/10'
                 }`
               }
             >

@@ -6,6 +6,7 @@ import {
   Image as ImageIcon,
   Box,
   BookOpen,
+  Users,
   Plus,
   ExternalLink,
   Leaf,
@@ -20,7 +21,8 @@ export default function AdminDashboard() {
     category_count: 0,
     photo_count: 0,
     model_count: 0,
-    published_magazines: 0
+    published_magazines: 0,
+    contributors_count: 0
   });
   const [recentSpecies, setRecentSpecies] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -28,11 +30,15 @@ export default function AdminDashboard() {
   useEffect(() => {
     Promise.allSettled([
       api.get('/api/magazine/stats'),
-      api.get('/api/species?status=all&limit=5')
-    ]).then(([statsRes, speciesRes]) => {
-      if (statsRes.status === 'fulfilled') {
-        setStats(statsRes.value);
+      api.get('/api/species?status=all&limit=5'),
+      api.get('/api/contributors')
+    ]).then(([statsRes, speciesRes, contribRes]) => {
+      const newStats = statsRes.status === 'fulfilled' ? statsRes.value : {};
+      if (contribRes.status === 'fulfilled') {
+        newStats.contributors_count = contribRes.value?.contributors?.length || 0;
       }
+      setStats(prev => ({ ...prev, ...newStats }));
+
       if (speciesRes.status === 'fulfilled') {
         setRecentSpecies(speciesRes.value?.species || []);
       }
@@ -42,9 +48,10 @@ export default function AdminDashboard() {
   const statCards = [
     { title: 'Documented Species', count: stats.species_count, icon: Dna, link: '/secure-admin-portal/species', color: 'bg-emerald-50 text-emerald-800 border-emerald-200' },
     { title: 'Taxonomic Categories', count: stats.category_count, icon: FolderOpen, link: '/secure-admin-portal/categories', color: 'bg-amber-50 text-amber-800 border-amber-200' },
-    { title: 'High-Res Photographs', count: stats.photo_count, icon: ImageIcon, link: '/secure-admin-portal/photos', color: 'bg-blue-50 text-blue-800 border-blue-200' },
-    { title: 'Interactive 3D Models', count: stats.model_count, icon: Box, link: '/secure-admin-portal/models', color: 'bg-purple-50 text-purple-800 border-purple-200' },
+    { title: 'Photographs', count: stats.photo_count, icon: ImageIcon, link: '/secure-admin-portal/photos', color: 'bg-blue-50 text-blue-800 border-blue-200' },
+    { title: '3D Specimens', count: stats.model_count, icon: Box, link: '/secure-admin-portal/models', color: 'bg-purple-50 text-purple-800 border-purple-200' },
     { title: 'Active Publications', count: stats.published_magazines, icon: BookOpen, link: '/secure-admin-portal/magazine', color: 'bg-rose-50 text-rose-800 border-rose-200' },
+    { title: 'Student Contributors', count: stats.contributors_count, icon: Users, link: '/secure-admin-portal/contributors', color: 'bg-teal-50 text-teal-800 border-teal-200' },
   ];
 
   return (
@@ -89,7 +96,7 @@ export default function AdminDashboard() {
       </div>
 
       {/* Metrics Row */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-6 gap-3 sm:gap-4">
         {statCards.map((card, idx) => {
           const Icon = card.icon;
           return (

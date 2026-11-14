@@ -245,19 +245,19 @@ export default function MagazineBuilder() {
           </p>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-2 sm:gap-3">
           <a
             href="/magazine"
             target="_blank"
             rel="noreferrer"
-            className="inline-flex items-center gap-1.5 bg-cream hover:bg-cream-dark text-forest px-4 py-2 rounded-full text-xs font-semibold transition border border-forest/15"
+            className="inline-flex items-center justify-center gap-1.5 bg-cream hover:bg-cream-dark text-forest px-4 py-2 rounded-full text-xs font-semibold transition border border-forest/15 min-h-[38px]"
           >
             <Eye className="w-3.5 h-3.5" /> Read Live Flipbook
           </a>
 
           <button
             onClick={() => setIsCreatingPub(true)}
-            className="inline-flex items-center gap-2 bg-forest hover:bg-forest-light text-cream px-5 py-2 rounded-full text-xs font-semibold transition shadow-sm"
+            className="inline-flex items-center justify-center gap-2 bg-forest hover:bg-forest-light text-cream px-5 py-2 rounded-full text-xs font-semibold transition shadow-sm min-h-[38px]"
           >
             <Plus className="w-4 h-4" /> New Edition
           </button>

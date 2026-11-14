@@ -44,13 +44,13 @@ export default function AboutPage() {
       </section>
 
       {/* Main Narrative */}
-      <section className="max-w-4xl mx-auto px-4 sm:px-6 pt-16">
-        <div className="bg-white rounded-3xl p-8 sm:p-12 shadow-sm border border-forest/10 space-y-8">
+      <section className="max-w-4xl mx-auto px-4 sm:px-6 pt-10 sm:pt-16">
+        <div className="bg-white rounded-3xl p-6 sm:p-12 shadow-sm border border-forest/10 space-y-8">
           <div>
-            <h2 className="font-display text-3xl font-bold text-forest mb-4">
+            <h2 className="font-display text-2xl sm:text-3xl font-bold text-forest mb-4">
               The Digital Coffee Table Book Concept
             </h2>
-            <p className="font-editorial text-forest/80 text-lg leading-relaxed drop-cap">
+            <p className="font-editorial text-forest/80 text-base sm:text-lg leading-relaxed drop-cap">
               BIODIVERSITY reimagines the timeless pleasure of opening a luxury nature coffee table book. Instead of conventional flat web pages, our reader is built with authentic physical page curvature, page shadows, and tactile corner drag interactions. Every volume is curated with field photographs, location mappings, and interactive 3D specimens that readers can freely manipulate.
             </p>
           </div>

@@ -74,10 +74,10 @@ export default function LocationsPage() {
       </section>
 
       {/* Main Container */}
-      <div className="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 py-8 flex flex-col lg:flex-row gap-8">
+      <div className="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 py-6 sm:py-8 flex flex-col lg:flex-row gap-6 sm:gap-8">
         {/* Sidebar: Location list */}
-        <div className="lg:w-1/3 bg-white rounded-2xl p-6 shadow-sm border border-forest/10 flex flex-col h-[600px]">
-          <h2 className="font-display text-xl font-bold text-forest mb-4 flex items-center justify-between">
+        <div className="lg:w-1/3 bg-white rounded-2xl p-4 sm:p-6 shadow-sm border border-forest/10 flex flex-col h-[340px] sm:h-[400px] lg:h-[600px]">
+          <h2 className="font-display text-lg sm:text-xl font-bold text-forest mb-3 sm:mb-4 flex items-center justify-between">
             <span>Survey Locations</span>
             <span className="text-xs bg-cream text-forest px-2.5 py-1 rounded-full font-mono">
               {locations.length}
@@ -132,7 +132,7 @@ export default function LocationsPage() {
         </div>
 
         {/* Map Container */}
-        <div className="lg:w-2/3 h-[600px] bg-cream rounded-2xl overflow-hidden shadow-sm border border-forest/10 relative">
+        <div className="lg:w-2/3 h-[380px] sm:h-[460px] lg:h-[600px] bg-cream rounded-2xl overflow-hidden shadow-sm border border-forest/10 relative">
           <MapContainer
             center={[12.8797, 121.7740]}
             zoom={6}

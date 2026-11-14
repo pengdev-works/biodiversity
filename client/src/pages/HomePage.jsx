@@ -47,38 +47,38 @@ export default function HomePage() {
           />
         </div>
 
-        <div className="relative z-10 text-center px-4 max-w-4xl mx-auto animate-fade-in pt-12 sm:pt-0">
+        <div className="relative z-10 text-center px-4 max-w-4xl mx-auto animate-fade-in pt-16 sm:pt-0">
           {/* Floating Pill Badge */}
-          <div className="inline-flex items-center gap-3 bg-black/40 backdrop-blur-md border border-cream/20 px-4 py-1.5 rounded-full mb-6 text-cream/90 text-xs shadow-xl">
-            <span className="relative flex h-2 w-2">
+          <div className="inline-flex items-center gap-2.5 sm:gap-3 bg-black/40 backdrop-blur-md border border-cream/20 px-3.5 sm:px-4 py-1.5 rounded-full mb-6 text-cream/90 text-xs shadow-xl max-w-full">
+            <span className="relative flex h-2 w-2 shrink-0">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sage opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-sage"></span>
             </span>
-            <Leaf className="w-3.5 h-3.5 text-sage" />
-            <span className="text-sage text-[11px] sm:text-xs font-semibold tracking-widest uppercase">
+            <Leaf className="w-3.5 h-3.5 text-sage shrink-0" />
+            <span className="text-sage text-[10px] sm:text-xs font-semibold tracking-widest uppercase truncate">
               Interactive Biodiversity Magazine
             </span>
           </div>
 
-          <h1 className="font-display text-6xl md:text-8xl font-bold text-cream mb-6 leading-none tracking-tight drop-shadow-lg">
+          <h1 className="font-display text-4xl sm:text-6xl md:text-8xl font-bold text-cream mb-4 sm:mb-6 leading-none tracking-tight drop-shadow-lg">
             BIO<span className="text-sage">DIVERSITY</span>
           </h1>
-          <p className="text-cream/90 text-xl md:text-2xl font-editorial italic mb-10 max-w-2xl mx-auto drop-shadow-md leading-relaxed">
+          <p className="text-cream/90 text-base sm:text-xl md:text-2xl font-editorial italic mb-8 sm:mb-10 max-w-2xl mx-auto drop-shadow-md leading-relaxed px-2">
             Discover the Hidden World of Biodiversity
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center w-full max-w-md mx-auto sm:max-w-none">
             <Link
               to="/magazine"
-              className="inline-flex items-center gap-2 bg-earth text-cream px-8 py-4 rounded-full font-semibold hover:bg-earth-dark transition-all hover:scale-105 shadow-xl border border-cream/10"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-earth text-cream px-6 sm:px-8 py-3.5 sm:py-4 rounded-full font-semibold hover:bg-earth-dark active:scale-95 transition-all shadow-xl border border-cream/10 text-sm sm:text-base"
             >
-              <BookOpen className="w-5 h-5" /> Open Digital Magazine
+              <BookOpen className="w-5 h-5 shrink-0" /> Open Digital Magazine
             </Link>
             <Link
               to="/explore"
-              className="inline-flex items-center gap-2 bg-black/30 backdrop-blur-sm border-2 border-cream/40 text-cream px-8 py-4 rounded-full font-medium hover:bg-cream/15 transition-all hover:scale-105 shadow-lg"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-black/30 backdrop-blur-sm border-2 border-cream/40 text-cream px-6 sm:px-8 py-3.5 sm:py-4 rounded-full font-medium hover:bg-cream/15 active:scale-95 transition-all shadow-lg text-sm sm:text-base"
             >
-              Explore Species <ChevronRight className="w-5 h-5" />
+              Explore Species <ChevronRight className="w-5 h-5 shrink-0" />
             </Link>
           </div>
         </div>

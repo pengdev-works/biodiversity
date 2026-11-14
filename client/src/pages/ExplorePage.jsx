@@ -113,13 +113,13 @@ export default function ExplorePage() {
           </form>
 
           {/* Category Filter Chips */}
-          <div className="flex flex-wrap items-center gap-2 mt-6">
+          <div className="flex items-center gap-2 mt-6 overflow-x-auto no-scrollbar pb-1.5 sm:flex-wrap">
             <button
               onClick={() => { setSelectedCategory(''); setPage(1); }}
-              className={`px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider transition-all border ${
+              className={`px-4 py-2.5 rounded-full text-xs font-semibold uppercase tracking-wider transition-all border shrink-0 min-h-[38px] ${
                 selectedCategory === ''
                   ? 'bg-earth text-cream border-earth shadow-lg'
-                  : 'bg-black/40 backdrop-blur-md text-cream/75 border-cream/20 hover:border-cream/40 hover:text-cream'
+                  : 'bg-black/40 backdrop-blur-md text-cream/75 border-cream/20 hover:border-cream/40 hover:text-cream active:bg-black/60'
               }`}
             >
               All Categories
@@ -128,10 +128,10 @@ export default function ExplorePage() {
               <button
                 key={cat.id}
                 onClick={() => { setSelectedCategory(cat.name); setPage(1); }}
-                className={`px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider transition-all border ${
+                className={`px-4 py-2.5 rounded-full text-xs font-semibold uppercase tracking-wider transition-all border shrink-0 min-h-[38px] ${
                   selectedCategory === cat.name
                     ? 'bg-earth text-cream border-earth shadow-lg'
-                    : 'bg-black/40 backdrop-blur-md text-cream/75 border-cream/20 hover:border-cream/40 hover:text-cream'
+                    : 'bg-black/40 backdrop-blur-md text-cream/75 border-cream/20 hover:border-cream/40 hover:text-cream active:bg-black/60'
                 }`}
               >
                 {cat.name} {cat.published_species_count ? `(${cat.published_species_count})` : ''}

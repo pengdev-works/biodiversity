@@ -116,12 +116,12 @@ export default function ModelManagement() {
           </p>
         </div>
 
-        <div className="flex flex-wrap items-center gap-2.5">
+        <div className="flex flex-col sm:flex-row sm:items-center gap-2.5 w-full sm:w-auto">
           {/* Target Species Selector */}
           <select
             value={selectedSpeciesId}
             onChange={e => setSelectedSpeciesId(e.target.value)}
-            className="border border-forest/20 rounded-xl px-3 py-2 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-sage bg-white text-forest shadow-sm"
+            className="w-full sm:w-auto border border-forest/20 rounded-xl px-3 py-2.5 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-sage bg-white text-forest shadow-sm min-h-[42px]"
           >
             <option value="">Select target species...</option>
             {speciesList.map(s => (
@@ -132,8 +132,8 @@ export default function ModelManagement() {
           </select>
 
           {/* Primary Upload GLB/GLTF Button */}
-          <label className="inline-flex items-center gap-2 bg-forest hover:bg-forest-light text-cream px-5 py-2.5 rounded-xl text-xs font-semibold cursor-pointer transition shadow-md hover:scale-[1.02]">
-            <Upload className="w-4 h-4 text-earth-light" />
+          <label className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-forest hover:bg-forest-light text-cream px-5 py-2.5 rounded-xl text-xs font-semibold cursor-pointer transition shadow-md hover:scale-[1.02] min-h-[42px]">
+            <Upload className="w-4 h-4 text-earth-light shrink-0" />
             <span>{uploading ? 'Uploading 3D Model...' : 'Upload GLB/GLTF Model'}</span>
             <input
               ref={glbInputRef}

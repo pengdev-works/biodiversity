@@ -3,10 +3,24 @@
 @tailwind utilities;
 
 @layer base {
+  html {
+    -webkit-tap-highlight-color: transparent;
+    scroll-behavior: smooth;
+  }
   body {
     @apply bg-paper font-body text-forest antialiased;
+    overflow-x: hidden;
   }
   h1, h2, h3 { @apply font-display; }
+}
+
+/* Hide scrollbar utility for horizontal scroll carousels/tabs on mobile */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 /* Magazine / FlipBook styles */

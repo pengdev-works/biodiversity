@@ -45,10 +45,10 @@ export default function AdminLogin() {
         />
       </div>
 
-      <div className="relative z-10 bg-forest-dark/90 backdrop-blur-xl rounded-3xl shadow-2xl p-8 sm:p-10 w-full max-w-md border border-cream/15 text-cream">
-        <div className="text-center mb-8">
-          <div className="w-16 h-16 bg-forest rounded-2xl flex items-center justify-center mx-auto mb-4 text-sage shadow-xl border border-cream/15">
-            <Lock className="w-8 h-8" />
+      <div className="relative z-10 bg-forest-dark/90 backdrop-blur-xl rounded-3xl shadow-2xl p-6 sm:p-10 w-full max-w-md border border-cream/15 text-cream my-auto">
+        <div className="text-center mb-6 sm:mb-8">
+          <div className="w-14 h-14 sm:w-16 sm:h-16 bg-forest rounded-2xl flex items-center justify-center mx-auto mb-4 text-sage shadow-xl border border-cream/15">
+            <Lock className="w-7 h-7 sm:w-8 sm:h-8" />
           </div>
           <h1 className="font-display text-2xl sm:text-3xl font-bold tracking-tight text-cream">
             BIO<span className="text-sage">DIVERSITY</span>
@@ -59,13 +59,13 @@ export default function AdminLogin() {
         </div>
 
         {error && (
-          <div className="flex items-center gap-2 bg-red-950/60 border border-red-500/40 text-red-200 px-4 py-3 rounded-xl text-sm mb-6">
+          <div className="flex items-center gap-2 bg-red-950/60 border border-red-500/40 text-red-200 px-4 py-3 rounded-xl text-xs sm:text-sm mb-6">
             <AlertCircle className="w-5 h-5 shrink-0 text-red-400" />
             <span>{error}</span>
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-5">
+        <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
           <div>
             <label className="block text-xs font-semibold uppercase tracking-wider text-cream/70 mb-2">
               Administrator Username
@@ -76,7 +76,7 @@ export default function AdminLogin() {
               onChange={(e) => setUsername(e.target.value)}
               required
               autoFocus
-              className="w-full border border-cream/20 rounded-xl px-4 py-3.5 bg-black/40 text-cream focus:outline-none focus:ring-2 focus:ring-earth text-sm font-medium placeholder:text-cream/30 transition shadow-inner"
+              className="w-full border border-cream/20 rounded-xl px-4 py-3 sm:py-3.5 bg-black/40 text-cream focus:outline-none focus:ring-2 focus:ring-earth text-base sm:text-sm font-medium placeholder:text-cream/30 transition shadow-inner"
               placeholder="Enter username"
             />
           </div>
@@ -91,13 +91,14 @@ export default function AdminLogin() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="w-full border border-cream/20 rounded-xl px-4 py-3.5 pr-12 bg-black/40 text-cream focus:outline-none focus:ring-2 focus:ring-earth text-sm font-medium placeholder:text-cream/30 transition shadow-inner"
+                className="w-full border border-cream/20 rounded-xl px-4 py-3 sm:py-3.5 pr-12 bg-black/40 text-cream focus:outline-none focus:ring-2 focus:ring-earth text-base sm:text-sm font-medium placeholder:text-cream/30 transition shadow-inner"
                 placeholder="Enter password"
               />
               <button
                 type="button"
                 onClick={() => setShowPw(!showPw)}
-                className="absolute right-3.5 top-1/2 -translate-y-1/2 text-cream/50 hover:text-cream transition"
+                className="absolute right-3.5 top-1/2 -translate-y-1/2 text-cream/50 hover:text-cream transition p-1"
+                aria-label={showPw ? 'Hide password' : 'Show password'}
               >
                 {showPw ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
               </button>
@@ -107,7 +108,7 @@ export default function AdminLogin() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-earth hover:bg-earth-dark text-cream font-semibold py-3.5 rounded-xl transition-all hover:scale-[1.02] shadow-xl disabled:opacity-50 text-sm tracking-wider uppercase border border-cream/10 mt-2"
+            className="w-full bg-earth hover:bg-earth-dark active:scale-[0.98] text-cream font-semibold py-3.5 rounded-xl transition-all shadow-xl disabled:opacity-50 text-xs sm:text-sm tracking-wider uppercase border border-cream/10 mt-2 min-h-[44px]"
           >
             {loading ? 'Authenticating...' : 'Sign In to Portal'}
           </button>

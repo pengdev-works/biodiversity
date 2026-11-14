@@ -169,7 +169,7 @@ export default function SpeciesDetailPage() {
                   Rotate, inspect, and explore this specimen from all angles using touch or mouse controls.
                 </p>
                 <div className="rounded-xl overflow-hidden border border-cream/10">
-                  <ThreeDViewer modelUrl={approvedModel.url} className="w-full h-[400px]" />
+                  <ThreeDViewer modelUrl={approvedModel.url} className="w-full h-[320px] sm:h-[420px]" />
                 </div>
               </div>
             )}
@@ -178,7 +178,7 @@ export default function SpeciesDetailPage() {
           {/* Species Dossier / Field Notes Column (5 cols) */}
           <div className="lg:col-span-5 space-y-6">
             {/* Quick Facts Card */}
-            <div className="bg-cream rounded-2xl p-6 shadow-sm border border-forest/10 space-y-4">
+            <div className="bg-cream rounded-2xl p-5 sm:p-6 shadow-sm border border-forest/10 space-y-4">
               <h3 className="font-display text-xl font-bold text-forest flex items-center gap-2">
                 <Sparkles className="w-5 h-5 text-earth" /> Field Notes
               </h3>
@@ -215,7 +215,7 @@ export default function SpeciesDetailPage() {
             </div>
 
             {/* Description Card */}
-            <div className="bg-white rounded-2xl p-8 shadow-sm border border-forest/10">
+            <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-forest/10">
               <h3 className="font-display text-2xl font-bold text-forest mb-4">
                 Scientific Overview
               </h3>
@@ -231,14 +231,14 @@ export default function SpeciesDetailPage() {
             </div>
 
             {/* Read in Digital Magazine CTA */}
-            <div className="bg-forest text-cream rounded-2xl p-6 shadow-md flex items-center justify-between">
+            <div className="bg-forest text-cream rounded-2xl p-5 sm:p-6 shadow-md flex flex-col sm:flex-row gap-3 sm:items-center justify-between">
               <div>
                 <h4 className="font-display text-lg font-bold">Featured in Magazine</h4>
                 <p className="text-xs text-cream/70 mt-1">Read the complete editorial feature in our digital flipbook.</p>
               </div>
               <Link
                 to="/magazine"
-                className="bg-earth hover:bg-earth-dark text-cream text-xs font-semibold px-4 py-2.5 rounded-full transition shadow-sm whitespace-nowrap ml-4"
+                className="inline-flex items-center justify-center bg-earth hover:bg-earth-dark text-cream text-xs font-semibold px-5 py-2.5 rounded-full transition shadow-sm whitespace-nowrap min-h-[38px] shrink-0"
               >
                 Open Flipbook
               </Link>
