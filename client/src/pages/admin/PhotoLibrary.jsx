@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Image as ImageIcon, Trash2, Star, Upload, Leaf, Filter } from 'lucide-react';
 import { api, getImageUrl } from '../../utils/api.js';
+import { Toast, showError, confirmAction } from '../../utils/alert.js';
 
 export default function PhotoLibrary() {
   const [photos, setPhotos] = useState([]);
@@ -63,12 +64,18 @@ export default function PhotoLibrary() {
   };
 
   const handleDelete = async (photoId) => {
-    if (!window.confirm('Delete this photograph?')) return;
+    const confirmed = await confirmAction({
+      title: 'Delete this photograph?',
+      text: 'This action will permanently delete this field photo record.',
+      confirmText: 'Yes, Delete'
+    });
+    if (!confirmed) return;
     try {
       await api.delete(`/api/photos/${photoId}`);
+      Toast.fire({ icon: 'success', title: 'Photo deleted' });
       setPhotos(prev => prev.filter(p => p.id !== photoId));
     } catch (err) {
-      alert(err.message || 'Failed to delete photo');
+      showError('Delete Failed', err.message || 'Failed to delete photo');
     }
   };
 

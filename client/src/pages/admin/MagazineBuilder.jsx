@@ -17,6 +17,7 @@ import {
   Image as ImageIcon
 } from 'lucide-react';
 import { api, getImageUrl } from '../../utils/api.js';
+import { Toast, showError, showSuccess, confirmAction } from '../../utils/alert.js';
 
 const PAGE_TEMPLATES = [
   { type: 'cover', name: 'Front Cover Spread' },
@@ -131,13 +132,19 @@ export default function MagazineBuilder() {
   };
 
   const handleDeletePublication = async (id) => {
-    if (!window.confirm('Delete this publication edition and all its assembled pages?')) return;
+    const confirmed = await confirmAction({
+      title: 'Delete publication edition?',
+      text: 'This will delete this magazine issue and all its assembled pages.',
+      confirmText: 'Yes, Delete'
+    });
+    if (!confirmed) return;
     try {
       await api.delete(`/api/magazine/${id}`);
+      Toast.fire({ icon: 'success', title: 'Publication deleted' });
       setActivePubId(null);
       loadPublications();
     } catch (err) {
-      alert(err.message || 'Failed to delete publication');
+      showError('Delete Failed', err.message || 'Failed to delete publication');
     }
   };
 
@@ -204,14 +211,21 @@ export default function MagazineBuilder() {
 
   const handleAutoGenerate = async () => {
     if (!activePubId) return;
-    if (!window.confirm('⚡ Auto-generate this issue?\n\nThis will assemble a complete flipbook spread (Editorial Cover, Table of Contents, Introduction, Species Hero Spreads, Taxonomic Dossiers, Photo Gallery, and Back Cover) directly from all published catalog species.')) return;
+    const confirmed = await confirmAction({
+      title: '⚡ Auto-generate issue?',
+      text: 'This will assemble a complete flipbook spread (Cover, Table of Contents, Introduction, Species Hero Spreads, Taxonomic Dossiers, Photo Gallery, and Back Cover) from all published catalog species.',
+      confirmText: 'Generate Issue',
+      confirmButtonColor: '#1b3d2f',
+      icon: 'question'
+    });
+    if (!confirmed) return;
     setAutoGenerating(true);
     try {
       const res = await api.post(`/api/magazine/${activePubId}/auto-generate`);
-      alert(res.message || 'Issue generated successfully!');
+      showSuccess('Issue Generated!', res.message || 'Complete flipbook spread successfully assembled.');
       loadActivePublication(activePubId);
     } catch (err) {
-      alert(err.message || 'Failed to auto-generate issue');
+      showError('Generation Failed', err.message || 'Failed to auto-generate issue');
     } finally {
       setAutoGenerating(false);
     }
@@ -225,10 +239,10 @@ export default function MagazineBuilder() {
     formData.append('cover', file);
     try {
       const res = await api.upload(`/api/magazine/${activePubId}/cover`, formData);
-      alert(res.message || 'Cover updated successfully');
+      Toast.fire({ icon: 'success', title: 'Cover image updated successfully!' });
       loadActivePublication(activePubId);
     } catch (err) {
-      alert(err.message || 'Failed to upload cover image');
+      showError('Upload Failed', err.message || 'Failed to upload cover image');
     } finally {
       setCoverUploading(false);
     }

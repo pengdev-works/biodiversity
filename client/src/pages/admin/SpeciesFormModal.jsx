@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { X, Upload, Trash2, Star, Image as ImageIcon, Box, AlertCircle, Check } from 'lucide-react';
 import { api, getImageUrl } from '../../utils/api.js';
+import { showError, confirmAction } from '../../utils/alert.js';
 
 const IUCN_STATUSES = [
   'Least Concern',
@@ -119,7 +120,7 @@ export default function SpeciesFormModal({ species, categories, onClose, onSucce
       const res = await api.upload(`/api/photos/species/${species.id}`, formData);
       setPhotos(res.photos || []);
     } catch (err) {
-      alert(err.message || 'Failed to upload photos');
+      showError('Upload Failed', err.message || 'Failed to upload photos');
     } finally {
       setPhotoUploading(false);
     }
@@ -130,17 +131,22 @@ export default function SpeciesFormModal({ species, categories, onClose, onSucce
       await api.put(`/api/photos/${photoId}/cover`);
       setPhotos(prev => prev.map(p => ({ ...p, is_cover: p.id === photoId ? 1 : 0 })));
     } catch (err) {
-      alert(err.message || 'Failed to set cover photo');
+      showError('Cover Error', err.message || 'Failed to set cover photo');
     }
   };
 
   const handleDeletePhoto = async (photoId) => {
-    if (!window.confirm('Delete this photo?')) return;
+    const confirmed = await confirmAction({
+      title: 'Delete Photo?',
+      text: 'This photo will be permanently removed.',
+      confirmText: 'Yes, Delete',
+    });
+    if (!confirmed) return;
     try {
       await api.delete(`/api/photos/${photoId}`);
       setPhotos(prev => prev.filter(p => p.id !== photoId));
     } catch (err) {
-      alert(err.message || 'Failed to delete photo');
+      showError('Delete Failed', err.message || 'Failed to delete photo');
     }
   };
 

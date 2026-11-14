@@ -87,3 +87,4 @@ export async function processUploadedImage(file, options = {}) {
     return file.filename ? `/uploads/${file.filename}` : null;
   }
 }
+

@@ -19,6 +19,7 @@ import {
   Camera
 } from 'lucide-react';
 import { api, getImageUrl } from '../../utils/api.js';
+import { Toast, showError, confirmAction } from '../../utils/alert.js';
 
 export default function TeamManagement() {
   const [members, setMembers] = useState([]);
@@ -140,6 +141,7 @@ export default function TeamManagement() {
 
       setIsModalOpen(false);
       loadMembers();
+      Toast.fire({ icon: 'success', title: editingMember ? 'Profile updated!' : 'Member added!' });
     } catch (err) {
       setError(err.message || 'Failed to save team member');
     } finally {
@@ -148,12 +150,18 @@ export default function TeamManagement() {
   };
 
   const handleDelete = async (id, name) => {
-    if (!window.confirm(`Remove "${name}" from the project team profiles?`)) return;
+    const confirmed = await confirmAction({
+      title: `Remove "${name}"?`,
+      text: 'This member will be removed from the project team profiles.',
+      confirmText: 'Yes, Remove',
+    });
+    if (!confirmed) return;
     try {
       await api.delete(`/api/team/${id}`);
       setMembers(prev => prev.filter(m => m.id !== id));
+      Toast.fire({ icon: 'success', title: 'Member removed.' });
     } catch (err) {
-      alert(err.message || 'Failed to delete member');
+      showError('Delete Failed', err.message || 'Failed to delete member');
     }
   };
 
@@ -162,7 +170,7 @@ export default function TeamManagement() {
       const res = await api.put(`/api/team/${id}/toggle`);
       setMembers(prev => prev.map(m => m.id === id ? res.member : m));
     } catch (err) {
-      alert(err.message || 'Failed to toggle visibility');
+      showError('Toggle Failed', err.message || 'Failed to toggle visibility');
     }
   };
 

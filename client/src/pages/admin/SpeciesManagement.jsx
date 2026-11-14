@@ -16,6 +16,7 @@ import {
   MapPin
 } from 'lucide-react';
 import { api, getImageUrl } from '../../utils/api.js';
+import { Toast, showError, confirmAction } from '../../utils/alert.js';
 import SpeciesFormModal from './SpeciesFormModal.jsx';
 
 export default function SpeciesManagement() {
@@ -75,14 +76,18 @@ export default function SpeciesManagement() {
   };
 
   const handleDelete = async (id, name) => {
-    if (!window.confirm(`Are you sure you want to delete "${name}"? This action cannot be undone.`)) {
-      return;
-    }
+    const confirmed = await confirmAction({
+      title: `Delete "${name}"?`,
+      text: 'This will delete the specimen, its photo records, and 3D models. This action cannot be undone.',
+      confirmText: 'Yes, Delete'
+    });
+    if (!confirmed) return;
     try {
       await api.delete(`/api/species/${id}`);
+      Toast.fire({ icon: 'success', title: 'Species deleted successfully' });
       setSpeciesList(prev => prev.filter(s => s.id !== id));
     } catch (err) {
-      alert(err.message || 'Failed to delete species');
+      showError('Delete Failed', err.message || 'Failed to delete species');
     }
   };
 

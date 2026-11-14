@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Plus, Trash2, Edit2, ArrowUp, ArrowDown, FolderOpen, Leaf, Check, X, AlertCircle } from 'lucide-react';
 import { api } from '../../utils/api.js';
+import { Toast, showError, showWarning, confirmAction } from '../../utils/alert.js';
 
 export default function CategoryManagement() {
   const [categories, setCategories] = useState([]);
@@ -64,15 +65,24 @@ export default function CategoryManagement() {
   const handleDelete = async (id, name, speciesCount = 0) => {
     const count = parseInt(speciesCount || 0, 10);
     if (count > 0) {
-      alert(`Cannot delete category "${name}".\n\nThere are ${count} species currently assigned to this category. Please reassign those species or remove them before deleting this category.`);
+      showWarning(
+        `Cannot delete "${name}"`,
+        `There are ${count} species currently assigned to this category. Please reassign or delete them first.`
+      );
       return;
     }
-    if (!window.confirm(`Delete category "${name}"? Only categories without linked species can be deleted.`)) return;
+    const confirmed = await confirmAction({
+      title: `Delete category "${name}"?`,
+      text: 'Only categories without linked species can be deleted.',
+      confirmText: 'Yes, Delete'
+    });
+    if (!confirmed) return;
     try {
       await api.delete(`/api/categories/${id}`);
+      Toast.fire({ icon: 'success', title: 'Category deleted successfully' });
       setCategories(prev => prev.filter(c => c.id !== id));
     } catch (err) {
-      alert(err.message || 'Failed to delete category');
+      showError('Delete Failed', err.message || 'Failed to delete category');
     }
   };
 

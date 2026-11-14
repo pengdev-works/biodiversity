@@ -15,6 +15,7 @@ import {
   Layers
 } from 'lucide-react';
 import { api } from '../../utils/api.js';
+import { showError, showWarning, confirmAction } from '../../utils/alert.js';
 import ThreeDViewer from '../../components/ThreeDViewer.jsx';
 
 export default function ModelManagement() {
@@ -55,7 +56,7 @@ export default function ModelManagement() {
     const file = e.target.files?.[0];
     if (!file) return;
     if (!selectedSpeciesId) {
-      alert('Please select a target species before uploading a GLB file');
+      showWarning('No Species Selected', 'Please select a target species before uploading a GLB file.');
       return;
     }
 
@@ -72,7 +73,7 @@ export default function ModelManagement() {
         setPreviewUrl(res.model.url);
       }
     } catch (err) {
-      alert(err.message || 'GLB upload failed');
+      showError('Upload Failed', err.message || 'GLB upload failed');
     } finally {
       setUploading(false);
     }
@@ -83,12 +84,17 @@ export default function ModelManagement() {
       await api.put(`/api/models/${id}/approve`);
       setModels(prev => prev.map(m => m.id === id ? { ...m, status: 'approved' } : m));
     } catch (err) {
-      alert(err.message || 'Failed to approve model');
+      showError('Approval Failed', err.message || 'Failed to approve model');
     }
   };
 
   const handleDelete = async (id) => {
-    if (!window.confirm('Delete this 3D model asset?')) return;
+    const confirmed = await confirmAction({
+      title: 'Delete 3D Model?',
+      text: 'This 3D model asset will be permanently removed.',
+      confirmText: 'Yes, Delete',
+    });
+    if (!confirmed) return;
     try {
       await api.delete(`/api/models/${id}`);
       setModels(prev => prev.filter(m => m.id !== id));
@@ -96,7 +102,7 @@ export default function ModelManagement() {
         setPreviewUrl(null);
       }
     } catch (err) {
-      alert(err.message || 'Failed to delete model');
+      showError('Delete Failed', err.message || 'Failed to delete model');
     }
   };
 

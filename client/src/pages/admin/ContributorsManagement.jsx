@@ -17,6 +17,7 @@ import {
   CheckCircle2
 } from 'lucide-react';
 import { api, getImageUrl } from '../../utils/api.js';
+import { Toast, showError, confirmAction } from '../../utils/alert.js';
 
 export default function ContributorsManagement() {
   const [contributors, setContributors] = useState([]);
@@ -205,10 +206,10 @@ export default function ContributorsManagement() {
 
         if (editingId) {
           await api.put(`/api/contributors/${editingId}`, payload);
-          showNotification('Contributor information successfully updated.');
+          Toast.fire({ icon: 'success', title: 'Contributor updated successfully!' });
         } else {
           await api.post('/api/contributors', payload);
-          showNotification('Contributor successfully added.');
+          Toast.fire({ icon: 'success', title: 'Contributor added successfully!' });
         }
       }
 
@@ -222,17 +223,20 @@ export default function ContributorsManagement() {
   };
 
   const handleDelete = async (item) => {
-    const confirmed = window.confirm(
-      `Are you sure you want to remove "${item.full_name}" from the contributors list?\n\nThis will remove their profile from the public homepage.`
-    );
+    const confirmed = await confirmAction({
+      title: 'Delete Contributor?',
+      text: `Are you sure you want to remove "${item.full_name}"? This will immediately remove their profile from the public homepage.`,
+      confirmText: 'Yes, Delete',
+      confirmButtonColor: '#e11d48'
+    });
     if (!confirmed) return;
 
     try {
       await api.delete(`/api/contributors/${item.id}`);
-      showNotification('Contributor successfully deleted.');
+      Toast.fire({ icon: 'success', title: 'Contributor deleted successfully' });
       setContributors(prev => prev.filter(c => c.id !== item.id));
     } catch (err) {
-      showNotification(err.message || 'Failed to delete contributor.', 'error');
+      showError('Delete Failed', err.message || 'Failed to delete contributor.');
     }
   };
 
