@@ -1,8 +1,7 @@
 import { useRef, useState, useCallback, useEffect } from 'react';
 import HTMLFlipBook from 'react-pageflip';
 import MagazinePage from './MagazinePage.jsx';
-import { ChevronLeft, ChevronRight, Maximize2, Minimize2, Volume2, VolumeX, BookOpen } from 'lucide-react';
-import { playPageTurn } from '../utils/audio.js';
+import { ChevronLeft, ChevronRight, Maximize2, Minimize2, BookOpen } from 'lucide-react';
 
 function calculateBookDimensions() {
   if (typeof window === 'undefined') return { width: 580, height: 800, isMobile: false };
@@ -57,7 +56,6 @@ export default function FlipBook({ magazine }) {
   const containerRef = useRef(null);
   const [currentPage, setCurrentPage] = useState(0);
   const [fullscreen, setFullscreen] = useState(false);
-  const [sound, setSound] = useState(true);
   const [dimensions, setDimensions] = useState(calculateBookDimensions);
 
   const pages = magazine?.pages || [];
@@ -71,8 +69,7 @@ export default function FlipBook({ magazine }) {
 
   const onFlip = useCallback((e) => {
     setCurrentPage(e.data);
-    if (sound) playPageTurn();
-  }, [sound]);
+  }, []);
 
   const prevPage = () => bookRef.current?.pageFlip().flipPrev();
   const nextPage = () => bookRef.current?.pageFlip().flipNext();
@@ -197,14 +194,6 @@ export default function FlipBook({ magazine }) {
           title="Previous Page (Left Arrow)"
         >
           <ChevronLeft className="w-5 h-5" />
-        </button>
-
-        <button
-          onClick={() => setSound(!sound)}
-          className="p-2.5 rounded-full text-cream/70 hover:text-cream hover:bg-cream/10 transition"
-          title={sound ? 'Mute Page Turn Sound' : 'Enable Page Turn Sound'}
-        >
-          {sound ? <Volume2 className="w-5 h-5" /> : <VolumeX className="w-5 h-5 text-rose-300" />}
         </button>
 
         <button
