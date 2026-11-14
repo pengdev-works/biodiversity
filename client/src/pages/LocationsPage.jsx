@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
 import { MapPin, Globe2, ChevronRight, Leaf } from 'lucide-react';
+import { api } from '../utils/api';
 
 // Fix default leaflet icons
 delete L.Icon.Default.prototype._getIconUrl;
@@ -33,8 +34,7 @@ export default function LocationsPage() {
   const [selectedLoc, setSelectedLoc] = useState(null);
 
   useEffect(() => {
-    fetch('/api/public/locations')
-      .then(res => res.json())
+    api.get('/api/public/locations')
       .then(data => {
         const locs = (data.locations || []).map((loc, idx) => ({
           ...loc,

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { BookOpen, Leaf, ChevronRight, Globe2, Camera, Dna, Users, Sparkles, Mail, Github, Linkedin, Code2, GraduationCap } from 'lucide-react';
+import { api, getImageUrl } from '../utils/api';
 
 export default function HomePage() {
   const [featured, setFeatured] = useState([]);
@@ -11,9 +12,9 @@ export default function HomePage() {
 
   useEffect(() => {
     Promise.allSettled([
-      fetch('/api/public/featured').then(r => r.json()),
-      fetch('/api/magazine/public').then(r => r.json()),
-      fetch('/api/public/contributors').then(r => r.json())
+      api.get('/api/public/featured'),
+      api.get('/api/magazine/public'),
+      api.get('/api/public/contributors')
     ]).then(([feat, mag, contribRes]) => {
       if (feat.status === 'fulfilled') setFeatured(feat.value?.species || []);
       if (mag.status === 'fulfilled') setMagazine(mag.value?.publication || null);
@@ -31,7 +32,7 @@ export default function HomePage() {
         {/* Cinematic Background Image with Dark Vignette Overlay */}
         <div className="absolute inset-0 overflow-hidden">
           <img
-            src={magazine?.cover_photo_url || "/images/hero-forest.jpg"}
+            src={getImageUrl(magazine?.cover_photo_url) || "/images/hero-forest.jpg"}
             alt="Biodiversity Natural Habitat"
             className="w-full h-full object-cover object-center filter brightness-[0.70] contrast-[1.08] scale-105 transition-transform duration-1000"
           />
@@ -405,7 +406,7 @@ export default function HomePage() {
                     <div className="relative w-24 h-24 rounded-full overflow-hidden bg-forest border-3 border-emerald-400/30 group-hover:border-emerald-400 mb-4 shadow-md transition-colors shrink-0">
                       {student.profile_image ? (
                         <img
-                          src={student.profile_image}
+                          src={getImageUrl(student.profile_image)}
                           alt={student.full_name}
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                         />
@@ -483,7 +484,7 @@ export default function HomePage() {
                     <div className="relative w-24 h-24 rounded-full overflow-hidden bg-forest border-3 border-amber-400/30 group-hover:border-amber-400 mb-4 shadow-md transition-colors shrink-0">
                       {student.profile_image ? (
                         <img
-                          src={student.profile_image}
+                          src={getImageUrl(student.profile_image)}
                           alt={student.full_name}
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                         />

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft, MapPin, Shield, TreePine, Leaf, Box, Image as ImageIcon, Sparkles } from 'lucide-react';
 import ThreeDViewer from '../components/ThreeDViewer.jsx';
+import { api, getImageUrl } from '../utils/api';
 
 export default function SpeciesDetailPage() {
   const { id } = useParams();
@@ -12,11 +13,7 @@ export default function SpeciesDetailPage() {
 
   useEffect(() => {
     setLoading(true);
-    fetch(`/api/public/species/${id}`)
-      .then(res => {
-        if (!res.ok) throw new Error('Species not found or unpublished');
-        return res.json();
-      })
+    api.get(`/api/public/species/${id}`)
       .then(data => {
         setSpecies(data.species);
         if (data.species.photos && data.species.photos.length > 0) {
@@ -124,7 +121,7 @@ export default function SpeciesDetailPage() {
             <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-forest-dark relative shadow-xl border border-forest/10">
               {selectedPhoto ? (
                 <img
-                  src={selectedPhoto}
+                  src={getImageUrl(selectedPhoto)}
                   alt={species.common_name}
                   className="w-full h-full object-cover"
                 />
@@ -147,7 +144,7 @@ export default function SpeciesDetailPage() {
                       selectedPhoto === p.url ? 'border-earth shadow-md scale-105' : 'border-transparent opacity-70 hover:opacity-100'
                     }`}
                   >
-                    <img src={p.url} alt="" className="w-full h-full object-cover" />
+                    <img src={getImageUrl(p.url)} alt="" className="w-full h-full object-cover" />
                   </button>
                 ))}
               </div>

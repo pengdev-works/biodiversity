@@ -1,5 +1,12 @@
 const BASE = import.meta.env.VITE_API_URL || '';
 
+export function getImageUrl(path) {
+  if (!path) return '';
+  if (path.startsWith('http://') || path.startsWith('https://') || path.startsWith('data:')) return path;
+  if (path.startsWith('/uploads')) return `${BASE}${path}`;
+  return path;
+}
+
 async function request(path, options = {}) {
   const token = localStorage.getItem('abraventure_token');
   const headers = { 'Content-Type': 'application/json', ...options.headers };

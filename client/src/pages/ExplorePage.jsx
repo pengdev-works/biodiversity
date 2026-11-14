@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Search, Filter, Leaf, ChevronLeft, ChevronRight, MapPin, Sparkles } from 'lucide-react';
+import { api, getImageUrl } from '../utils/api';
 
 export default function ExplorePage() {
   const [species, setSpecies] = useState([]);
@@ -13,8 +14,7 @@ export default function ExplorePage() {
 
   // Load categories on mount
   useEffect(() => {
-    fetch('/api/public/categories')
-      .then(res => res.json())
+    api.get('/api/public/categories')
       .then(data => setCategories(data.categories || []))
       .catch(() => {});
   }, []);
@@ -29,8 +29,7 @@ export default function ExplorePage() {
     if (selectedCategory) params.set('category', selectedCategory);
     if (searchTerm) params.set('search', searchTerm);
 
-    fetch(`/api/public/species?${params.toString()}`)
-      .then(res => res.json())
+    api.get(`/api/public/species?${params.toString()}`)
       .then(data => {
         setSpecies(data.species || []);
         if (data.pagination) setPagination(data.pagination);
@@ -171,7 +170,7 @@ export default function ExplorePage() {
                   <div className="aspect-[4/3] bg-sage/20 relative overflow-hidden">
                     {sp.cover_photo_url ? (
                       <img
-                        src={sp.cover_photo_url}
+                        src={getImageUrl(sp.cover_photo_url)}
                         alt={sp.common_name}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                       />

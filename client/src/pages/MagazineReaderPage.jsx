@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, BookOpen, Leaf, AlertCircle } from 'lucide-react';
 import FlipBook from '../components/FlipBook.jsx';
+import { api } from '../utils/api';
 
 export default function MagazineReaderPage() {
   const [magazine, setMagazine] = useState(null);
@@ -9,11 +10,7 @@ export default function MagazineReaderPage() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch('/api/magazine/public')
-      .then(res => {
-        if (!res.ok) throw new Error('Failed to load magazine publication');
-        return res.json();
-      })
+    api.get('/api/magazine/public')
       .then(data => {
         if (data.publication) {
           setMagazine({
