@@ -30,7 +30,7 @@ router.put('/reorder', authenticateToken, async (req, res) => {
 
     for (const item of items) {
       await query(
-        "UPDATE team_members SET sort_order = $1, updated_at = datetime('now') WHERE id = $2",
+        "UPDATE team_members SET sort_order = $1, updated_at = CURRENT_TIMESTAMP WHERE id = $2",
         [item.sort_order, item.id]
       );
     }

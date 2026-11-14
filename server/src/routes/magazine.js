@@ -169,7 +169,7 @@ router.put('/:id', authenticateToken, async (req, res) => {
           intro_title = COALESCE($6, intro_title),
           intro_body = COALESCE($7, intro_body),
           status = COALESCE($8, status),
-          updated_at = datetime('now')
+          updated_at = CURRENT_TIMESTAMP
       WHERE id = $9
       RETURNING *
     `, [title, subtitle, edition, volume, cover_photo_url, intro_title, intro_body, status, id]);
@@ -204,7 +204,7 @@ router.put('/:id/publish', authenticateToken, async (req, res) => {
     }
 
     const result = await query(
-      "UPDATE magazine_publications SET status = $1, updated_at = datetime('now') WHERE id = $2 RETURNING *",
+      "UPDATE magazine_publications SET status = $1, updated_at = CURRENT_TIMESTAMP WHERE id = $2 RETURNING *",
       [nextStatus, id]
     );
 
@@ -243,7 +243,7 @@ router.post('/:id/cover', authenticateToken, handleUpload(uploadCover), async (r
 
     const result = await query(`
       UPDATE magazine_publications
-      SET cover_photo_url = $1, updated_at = datetime('now')
+      SET cover_photo_url = $1, updated_at = CURRENT_TIMESTAMP
       WHERE id = $2
       RETURNING *
     `, [coverUrl, id]);
@@ -410,7 +410,7 @@ router.post('/:id/auto-generate', authenticateToken, async (req, res) => {
     }
 
     // Update publication timestamp
-    await query("UPDATE magazine_publications SET updated_at = datetime('now') WHERE id = $1", [id]);
+    await query("UPDATE magazine_publications SET updated_at = CURRENT_TIMESTAMP WHERE id = $1", [id]);
 
     const createdPages = await query(
       'SELECT * FROM magazine_pages WHERE publication_id = $1 ORDER BY sort_order ASC',
