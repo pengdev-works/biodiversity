@@ -20,6 +20,7 @@ import { fileURLToPath } from 'url';
 import { query } from '../db.js';
 import { authenticateToken } from '../middleware/auth.js';
 import { uploadImages, uploadImage, handleUpload } from '../middleware/upload.js';
+import { processUploadedImage } from '../utils/imageStorage.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const uploadsDir = path.join(__dirname, '..', '..', 'uploads');
@@ -62,7 +63,7 @@ speciesPhotosRouter.post(
       const savedPhotos = [];
 
       for (const file of req.files) {
-        const relativeUrl = `/uploads/${file.filename}`;
+        const relativeUrl = await processUploadedImage(file, { maxWidth: 1400, maxHeight: 1400, quality: 85, folder: 'biodiversity/species' });
         const caption = req.body.caption || null;
 
         const result = await query(

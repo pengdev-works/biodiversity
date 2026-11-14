@@ -7,6 +7,7 @@ import { Router } from 'express';
 import { query } from '../db.js';
 import { authenticateToken } from '../middleware/auth.js';
 import { handleUpload, uploadImage } from '../middleware/upload.js';
+import { processUploadedImage } from '../utils/imageStorage.js';
 
 const router = Router();
 
@@ -83,7 +84,7 @@ router.post('/', authenticateToken, handleUpload(uploadImage), async (req, res) 
 
     let photo_url = req.body.photo_url || null;
     if (req.file) {
-      photo_url = `/uploads/${req.file.filename}`;
+      photo_url = await processUploadedImage(req.file, { maxWidth: 500, maxHeight: 500, quality: 82, folder: 'biodiversity/team' });
     }
 
     const orderVal = sort_order !== undefined ? parseInt(sort_order, 10) : 0;
@@ -154,7 +155,7 @@ router.put('/:id', authenticateToken, handleUpload(uploadImage), async (req, res
 
     let photo_url = ex.photo_url;
     if (req.file) {
-      photo_url = `/uploads/${req.file.filename}`;
+      photo_url = await processUploadedImage(req.file, { maxWidth: 500, maxHeight: 500, quality: 82, folder: 'biodiversity/team' });
     } else if (req.body.photo_url !== undefined) {
       photo_url = req.body.photo_url;
     }

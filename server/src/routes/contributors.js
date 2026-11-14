@@ -7,6 +7,7 @@ import { Router } from 'express';
 import { query } from '../db.js';
 import { authenticateToken } from '../middleware/auth.js';
 import { handleUpload, uploadContributorPhoto } from '../middleware/upload.js';
+import { processUploadedImage } from '../utils/imageStorage.js';
 
 const router = Router();
 
@@ -105,7 +106,7 @@ router.post('/', authenticateToken, handleUpload(uploadContributorPhoto), async 
     const uploadedFile = req.file || (Array.isArray(req.files) ? req.files[0] : (req.files?.photo?.[0] || req.files?.profile_image?.[0]));
     let profile_image = req.body.profile_image || null;
     if (uploadedFile) {
-      profile_image = `/uploads/${uploadedFile.filename}`;
+      profile_image = await processUploadedImage(uploadedFile, { maxWidth: 500, maxHeight: 500, quality: 82, folder: 'biodiversity/contributors' });
     }
 
     // Determine sort_order if not provided
@@ -186,7 +187,7 @@ const updateContributorHandler = async (req, res) => {
     const uploadedFile = req.file || (Array.isArray(req.files) ? req.files[0] : (req.files?.photo?.[0] || req.files?.profile_image?.[0]));
     let profile_image = ex.profile_image;
     if (uploadedFile) {
-      profile_image = `/uploads/${uploadedFile.filename}`;
+      profile_image = await processUploadedImage(uploadedFile, { maxWidth: 500, maxHeight: 500, quality: 82, folder: 'biodiversity/contributors' });
     } else if (req.body.profile_image !== undefined && req.body.profile_image !== '') {
       profile_image = req.body.profile_image;
     }

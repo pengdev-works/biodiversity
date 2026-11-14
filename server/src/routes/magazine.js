@@ -7,6 +7,7 @@ import { Router } from 'express';
 import { query } from '../db.js';
 import { authenticateToken } from '../middleware/auth.js';
 import { handleUpload, uploadCover } from '../middleware/upload.js';
+import { processUploadedImage } from '../utils/imageStorage.js';
 
 const router = Router();
 
@@ -242,7 +243,7 @@ router.post('/:id/cover', authenticateToken, handleUpload(uploadCover), async (r
       return res.status(400).json({ error: 'No cover image file provided' });
     }
 
-    const coverUrl = `/uploads/${req.file.filename}`;
+    const coverUrl = await processUploadedImage(req.file, { maxWidth: 1200, maxHeight: 1600, quality: 85, folder: 'biodiversity/magazine' });
 
     const result = await query(`
       UPDATE magazine_publications
