@@ -234,7 +234,10 @@ router.delete('/:id', authenticateToken, async (req, res) => {
 // ─────────────────────────────────────────────────────────────────────────────
 router.post('/:id/cover', authenticateToken, handleUpload(uploadCover), async (req, res) => {
   try {
-    const { id } = req.params;
+    const pubId = parseInt(req.params.id, 10);
+    if (isNaN(pubId)) {
+      return res.status(400).json({ error: 'Invalid publication ID' });
+    }
     if (!req.file) {
       return res.status(400).json({ error: 'No cover image file provided' });
     }
@@ -246,7 +249,7 @@ router.post('/:id/cover', authenticateToken, handleUpload(uploadCover), async (r
       SET cover_photo_url = $1, updated_at = CURRENT_TIMESTAMP
       WHERE id = $2
       RETURNING *
-    `, [coverUrl, id]);
+    `, [coverUrl, pubId]);
 
     if (result.rows.length === 0) {
       return res.status(404).json({ error: 'Publication not found' });
@@ -259,7 +262,7 @@ router.post('/:id/cover', authenticateToken, handleUpload(uploadCover), async (r
     });
   } catch (err) {
     console.error('[POST /api/magazine/:id/cover]', err);
-    return res.status(500).json({ error: 'Failed to upload cover photo' });
+    return res.status(500).json({ error: err.message || 'Failed to upload cover photo' });
   }
 });
 
