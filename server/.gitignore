@@ -1,0 +1,10 @@
+node_modules/
+uploads/*.jpg
+uploads/*.png
+uploads/*.webp
+uploads/*.gif
+uploads/*.glb
+uploads/*.gltf
+.env
+data/
+*.sqlite
