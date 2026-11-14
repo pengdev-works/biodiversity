@@ -16,7 +16,7 @@ import {
   Filter,
   CheckCircle2
 } from 'lucide-react';
-import { api } from '../../utils/api.js';
+import { api, getImageUrl } from '../../utils/api.js';
 
 export default function ContributorsManagement() {
   const [contributors, setContributors] = useState([]);
@@ -362,7 +362,7 @@ export default function ContributorsManagement() {
                   <div className="relative w-12 h-12 rounded-full overflow-hidden bg-forest border-2 border-forest/15 shadow-xs shrink-0 flex items-center justify-center">
                     {c.profile_image ? (
                       <img
-                        src={c.profile_image}
+                        src={getImageUrl(c.profile_image)}
                         alt={c.full_name}
                         className="w-full h-full object-cover"
                       />
@@ -439,7 +439,7 @@ export default function ContributorsManagement() {
                         <div className="relative w-12 h-12 rounded-full overflow-hidden bg-forest border-2 border-forest/15 shadow-xs shrink-0 flex items-center justify-center">
                           {c.profile_image ? (
                             <img
-                              src={c.profile_image}
+                              src={getImageUrl(c.profile_image)}
                               alt={c.full_name}
                               className="w-full h-full object-cover"
                             />
@@ -549,7 +549,7 @@ export default function ContributorsManagement() {
               <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-5 p-3.5 sm:p-4 rounded-2xl bg-cream/40 border border-forest/10">
                 <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden bg-forest-dark border-2 border-forest/20 shrink-0 shadow-inner group">
                   {previewUrl ? (
-                    <img src={previewUrl} alt="Preview" className="w-full h-full object-cover" />
+                    <img src={getImageUrl(previewUrl)} alt="Preview" className="w-full h-full object-cover" />
                   ) : (
                     <div className="w-full h-full flex flex-col items-center justify-center text-cream/40 p-2 text-center">
                       <Camera className="w-5 h-5 sm:w-6 sm:h-6 mb-1 text-sage" />

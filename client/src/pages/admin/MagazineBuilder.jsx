@@ -16,7 +16,7 @@ import {
   Upload,
   Image as ImageIcon
 } from 'lucide-react';
-import { api } from '../../utils/api.js';
+import { api, getImageUrl } from '../../utils/api.js';
 
 const PAGE_TEMPLATES = [
   { type: 'cover', name: 'Front Cover Spread' },
@@ -352,7 +352,7 @@ export default function MagazineBuilder() {
                 {publication.cover_photo_url ? (
                   <div className="relative aspect-video rounded-xl overflow-hidden border border-forest/15 bg-forest-dark group">
                     <img
-                      src={publication.cover_photo_url}
+                      src={getImageUrl(publication.cover_photo_url)}
                       alt={publication.title}
                       className="w-full h-full object-cover"
                     />

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Image as ImageIcon, Trash2, Star, Upload, Leaf, Filter } from 'lucide-react';
-import { api } from '../../utils/api.js';
+import { api, getImageUrl } from '../../utils/api.js';
 
 export default function PhotoLibrary() {
   const [photos, setPhotos] = useState([]);
@@ -130,7 +130,7 @@ export default function PhotoLibrary() {
               className="bg-white rounded-2xl overflow-hidden border border-forest/10 shadow-xs group flex flex-col justify-between"
             >
               <div className="aspect-square bg-forest-dark relative overflow-hidden">
-                <img src={p.url} alt="" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                <img src={getImageUrl(p.url)} alt="" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                 {p.is_cover ? (
                   <span className="absolute top-2 left-2 bg-earth text-cream text-[9px] font-bold px-2 py-0.5 rounded shadow">
                     COVER

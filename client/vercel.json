@@ -1,9 +1,12 @@
 {
   "rewrites": [
     {
+      "source": "/uploads/:path*",
+      "destination": "https://biodiversity-unig.onrender.com/uploads/:path*"
+    },
+    {
       "source": "/(.*)",
       "destination": "/index.html"
     }
   ]
 }
-

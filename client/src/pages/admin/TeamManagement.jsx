@@ -18,7 +18,7 @@ import {
   Sparkles,
   Camera
 } from 'lucide-react';
-import { api } from '../../utils/api.js';
+import { api, getImageUrl } from '../../utils/api.js';
 
 export default function TeamManagement() {
   const [members, setMembers] = useState([]);
@@ -287,7 +287,7 @@ export default function TeamManagement() {
                   <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-2xl overflow-hidden bg-forest-dark border-2 border-forest/10 shrink-0 shadow-inner">
                     {member.photo_url ? (
                       <img
-                        src={member.photo_url}
+                        src={getImageUrl(member.photo_url)}
                         alt={member.name}
                         className="w-full h-full object-cover"
                       />
@@ -406,7 +406,7 @@ export default function TeamManagement() {
               <div className="flex flex-col sm:flex-row items-center gap-5 p-4 rounded-2xl bg-cream/40 border border-forest/10">
                 <div className="relative w-24 h-24 rounded-2xl overflow-hidden bg-forest-dark border-2 border-forest/20 shrink-0 shadow-inner group">
                   {previewUrl ? (
-                    <img src={previewUrl} alt="Preview" className="w-full h-full object-cover" />
+                    <img src={getImageUrl(previewUrl)} alt="Preview" className="w-full h-full object-cover" />
                   ) : (
                     <div className="w-full h-full flex flex-col items-center justify-center text-cream/40 p-2 text-center">
                       <Camera className="w-6 h-6 mb-1 text-sage" />

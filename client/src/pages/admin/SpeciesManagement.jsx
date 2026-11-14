@@ -15,7 +15,7 @@ import {
   Image as ImageIcon,
   MapPin
 } from 'lucide-react';
-import { api } from '../../utils/api.js';
+import { api, getImageUrl } from '../../utils/api.js';
 import SpeciesFormModal from './SpeciesFormModal.jsx';
 
 export default function SpeciesManagement() {
@@ -213,7 +213,7 @@ export default function SpeciesManagement() {
                       <div className="flex items-center gap-3.5">
                         <div className="w-12 h-12 rounded-xl bg-sage/20 shrink-0 overflow-hidden border border-forest/10">
                           {sp.cover_photo_url ? (
-                            <img src={sp.cover_photo_url} alt="" className="w-full h-full object-cover" />
+                            <img src={getImageUrl(sp.cover_photo_url)} alt="" className="w-full h-full object-cover" />
                           ) : (
                             <div className="w-full h-full flex items-center justify-center text-sage/50">
                               <Leaf className="w-5 h-5" />
@@ -316,7 +316,7 @@ export default function SpeciesManagement() {
             >
               <div className="aspect-[4/3] bg-sage/20 relative overflow-hidden">
                 {sp.cover_photo_url ? (
-                  <img src={sp.cover_photo_url} alt="" className="w-full h-full object-cover" />
+                  <img src={getImageUrl(sp.cover_photo_url)} alt="" className="w-full h-full object-cover" />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center text-sage/40">
                     <Leaf className="w-12 h-12" />

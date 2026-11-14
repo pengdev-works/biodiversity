@@ -13,7 +13,7 @@ import {
   Sparkles,
   ArrowRight
 } from 'lucide-react';
-import { api } from '../../utils/api.js';
+import { api, getImageUrl } from '../../utils/api.js';
 
 export default function AdminDashboard() {
   const [stats, setStats] = useState({
@@ -156,7 +156,7 @@ export default function AdminDashboard() {
                   <div className="flex items-center gap-3 min-w-0">
                     <div className="w-12 h-12 rounded-xl bg-sage/20 shrink-0 overflow-hidden">
                       {sp.cover_photo_url ? (
-                        <img src={sp.cover_photo_url} alt="" className="w-full h-full object-cover" />
+                        <img src={getImageUrl(sp.cover_photo_url)} alt="" className="w-full h-full object-cover" />
                       ) : (
                         <div className="w-full h-full flex items-center justify-center text-sage/50">
                           <Leaf className="w-5 h-5" />

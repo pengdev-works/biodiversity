@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { X, Upload, Trash2, Star, Image as ImageIcon, Box, AlertCircle, Check } from 'lucide-react';
-import { api } from '../../utils/api.js';
+import { api, getImageUrl } from '../../utils/api.js';
 
 const IUCN_STATUSES = [
   'Least Concern',
@@ -358,7 +358,7 @@ export default function SpeciesFormModal({ species, categories, onClose, onSucce
                         p.is_cover ? 'border-earth shadow-sm' : 'border-transparent'
                       }`}
                     >
-                      <img src={p.url} alt="" className="w-full h-full object-cover" />
+                      <img src={getImageUrl(p.url)} alt="" className="w-full h-full object-cover" />
                       {p.is_cover && (
                         <span className="absolute top-2 left-2 bg-earth text-cream text-[9px] font-bold px-1.5 py-0.5 rounded shadow">
                           COVER
