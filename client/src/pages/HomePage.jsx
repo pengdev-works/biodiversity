@@ -163,19 +163,19 @@ export default function HomePage() {
                 to={`/explore/${sp.id}`}
                 className="group relative flex flex-col overflow-hidden rounded-3xl bg-white border border-forest/10 hover:border-earth/40 hover:shadow-2xl transition-all duration-500 hover:-translate-y-1.5"
               >
-                <div className="aspect-[4/3] bg-forest-dark relative overflow-hidden">
+                <div className="aspect-[4/3] bg-forest-dark relative overflow-hidden flex items-center justify-center">
+                  <div className="w-full h-full flex items-center justify-center bg-forest-dark absolute inset-0">
+                    <Leaf className="w-14 h-14 text-sage/30" />
+                  </div>
                   {sp.cover_photo_url ? (
                     <img
-                      src={sp.cover_photo_url}
+                      src={getImageUrl(sp.cover_photo_url)}
                       alt={sp.common_name}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out relative z-1"
+                      onError={(e) => { e.currentTarget.style.display = 'none'; }}
                     />
-                  ) : (
-                    <div className="w-full h-full flex items-center justify-center bg-forest-dark">
-                      <Leaf className="w-14 h-14 text-sage/30" />
-                    </div>
-                  )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80 group-hover:opacity-60 transition-opacity" />
+                  ) : null}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80 group-hover:opacity-60 transition-opacity z-2 pointer-events-none" />
 
                   {/* Category Pill Tag */}
                   <span className="absolute top-4 left-4 bg-forest-dark/80 backdrop-blur-md text-cream text-[10px] uppercase tracking-widest font-semibold px-3 py-1 rounded-full border border-cream/20 shadow-md">

@@ -364,17 +364,17 @@ export default function ContributorsManagement() {
               >
                 <div className="flex items-center gap-3">
                   <div className="relative w-12 h-12 rounded-full overflow-hidden bg-forest border-2 border-forest/15 shadow-xs shrink-0 flex items-center justify-center">
+                    <span className="font-display font-bold text-base text-cream absolute">
+                      {c.full_name?.charAt(0)}
+                    </span>
                     {c.profile_image ? (
                       <img
                         src={getImageUrl(c.profile_image)}
                         alt={c.full_name}
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-cover relative z-1"
+                        onError={(e) => { e.currentTarget.style.display = 'none'; }}
                       />
-                    ) : (
-                      <span className="font-display font-bold text-base text-cream">
-                        {c.full_name.charAt(0)}
-                      </span>
-                    )}
+                    ) : null}
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center justify-between gap-1">
@@ -441,17 +441,17 @@ export default function ContributorsManagement() {
                       {/* Circular Profile Picture */}
                       <td className="py-4 px-6">
                         <div className="relative w-12 h-12 rounded-full overflow-hidden bg-forest border-2 border-forest/15 shadow-xs shrink-0 flex items-center justify-center">
+                          <span className="font-display font-bold text-base text-cream absolute">
+                            {c.full_name?.charAt(0)}
+                          </span>
                           {c.profile_image ? (
                             <img
                               src={getImageUrl(c.profile_image)}
                               alt={c.full_name}
-                              className="w-full h-full object-cover"
+                              className="w-full h-full object-cover relative z-1"
+                              onError={(e) => { e.currentTarget.style.display = 'none'; }}
                             />
-                          ) : (
-                            <span className="font-display font-bold text-base text-cream">
-                              {c.full_name.charAt(0)}
-                            </span>
-                          )}
+                          ) : null}
                         </div>
                       </td>
 

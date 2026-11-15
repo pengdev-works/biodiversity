@@ -286,7 +286,7 @@ router.post('/:id/auto-generate', authenticateToken, async (req, res) => {
       SELECT s.*, c.name AS category_name, c.color AS category_color
       FROM species s
       LEFT JOIN categories c ON c.id = s.category_id
-      WHERE s.is_published = 1
+      WHERE s.is_published = TRUE
       ORDER BY s.is_featured DESC, s.sort_order ASC, s.created_at DESC
       LIMIT 8
     `);

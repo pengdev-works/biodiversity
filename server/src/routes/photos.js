@@ -159,19 +159,31 @@ photosRouter.post('/species/:speciesId', authenticateToken, handleUpload(uploadI
 
     const savedPhotos = [];
     for (const f of files) {
-      const photoUrl = `/uploads/${f.filename}`;
-      const isFirst = nextOrder === 1 ? 1 : 0;
+      const photoUrl = await processUploadedImage(f, {
+        maxWidth: 1200,
+        maxHeight: 1200,
+        quality: 80,
+        folder: 'biodiversity/species'
+      });
+      const isFirst = nextOrder === 1;
       const insertRes = await query(`
         INSERT INTO species_photos (species_id, url, caption, is_cover, sort_order)
         VALUES ($1, $2, $3, $4, $5)
         RETURNING *
       `, [speciesId, photoUrl, f.originalname, isFirst, nextOrder]);
 
-      const photo = insertRes.rows[0];
+      let photo;
+      if (insertRes.rows && insertRes.rows[0]) {
+        photo = insertRes.rows[0];
+      } else {
+        const sel = await query('SELECT * FROM species_photos WHERE id = $1', [insertRes.lastInsertRowid]);
+        photo = sel.rows[0];
+      }
       savedPhotos.push(photo);
 
-      if (isFirst) {
-        await query('UPDATE species SET cover_photo_url = $1 WHERE id = $2', [photoUrl, speciesId]);
+      const spRes = await query('SELECT cover_photo_url FROM species WHERE id = $1', [speciesId]);
+      if (isFirst || !spRes.rows[0]?.cover_photo_url) {
+        await query('UPDATE species SET cover_photo_url = $1, updated_at = CURRENT_TIMESTAMP WHERE id = $2', [photoUrl, speciesId]);
       }
       nextOrder++;
     }

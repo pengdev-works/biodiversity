@@ -19,7 +19,7 @@ router.get('/featured', async (req, res) => {
       SELECT s.*, c.name AS category_name, c.color AS category_color
       FROM species s
       LEFT JOIN categories c ON c.id = s.category_id
-      WHERE s.is_published = 1 AND s.is_featured = 1
+      WHERE s.is_published = TRUE AND s.is_featured = TRUE
       ORDER BY s.sort_order ASC, s.created_at DESC
       LIMIT 6
     `);
@@ -30,7 +30,7 @@ router.get('/featured', async (req, res) => {
         SELECT s.*, c.name AS category_name, c.color AS category_color
         FROM species s
         LEFT JOIN categories c ON c.id = s.category_id
-        WHERE s.is_published = 1
+        WHERE s.is_published = TRUE
         ORDER BY s.sort_order ASC, s.created_at DESC
         LIMIT 6
       `);
@@ -55,7 +55,7 @@ router.get('/species', async (req, res) => {
 
     const { category, search, location } = req.query;
 
-    const conditions = ['s.is_published = 1'];
+    const conditions = ['s.is_published = TRUE'];
     const params = [];
 
     if (category) {
@@ -127,7 +127,7 @@ router.get('/species/:id', async (req, res) => {
       SELECT s.*, c.name AS category_name, c.color AS category_color
       FROM species s
       LEFT JOIN categories c ON c.id = s.category_id
-      WHERE s.id = $1 AND s.is_published = 1
+      WHERE s.id = $1 AND s.is_published = TRUE
     `, [id]);
 
     if (speciesRes.rows.length === 0) {
@@ -162,7 +162,7 @@ router.get('/locations', async (req, res) => {
     const result = await query(`
       SELECT location, COUNT(*) as species_count
       FROM species
-      WHERE is_published = 1 AND location IS NOT NULL AND TRIM(location) != ''
+      WHERE is_published = TRUE AND location IS NOT NULL AND TRIM(location) != ''
       GROUP BY location
       ORDER BY species_count DESC, location ASC
     `);
@@ -181,7 +181,7 @@ router.get('/categories', async (req, res) => {
     const result = await query(`
       SELECT c.*, COUNT(s.id) as published_species_count
       FROM categories c
-      INNER JOIN species s ON s.category_id = c.id AND s.is_published = 1
+      INNER JOIN species s ON s.category_id = c.id AND s.is_published = TRUE
       GROUP BY c.id
       ORDER BY c.sort_order ASC, c.name ASC
     `);

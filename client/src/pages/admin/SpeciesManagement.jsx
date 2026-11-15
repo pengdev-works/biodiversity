@@ -216,14 +216,16 @@ export default function SpeciesManagement() {
                   <tr key={sp.id} className="hover:bg-cream/20 transition-colors">
                     <td className="py-4 px-6">
                       <div className="flex items-center gap-3.5">
-                        <div className="w-12 h-12 rounded-xl bg-sage/20 shrink-0 overflow-hidden border border-forest/10">
+                        <div className="w-12 h-12 rounded-xl bg-sage/20 shrink-0 overflow-hidden border border-forest/10 flex items-center justify-center relative">
+                          <Leaf className="w-5 h-5 text-sage/50 absolute" />
                           {sp.cover_photo_url ? (
-                            <img src={getImageUrl(sp.cover_photo_url)} alt="" className="w-full h-full object-cover" />
-                          ) : (
-                            <div className="w-full h-full flex items-center justify-center text-sage/50">
-                              <Leaf className="w-5 h-5" />
-                            </div>
-                          )}
+                            <img
+                              src={getImageUrl(sp.cover_photo_url)}
+                              alt=""
+                              className="w-full h-full object-cover relative z-1"
+                              onError={(e) => { e.currentTarget.style.display = 'none'; }}
+                            />
+                          ) : null}
                         </div>
                         <div>
                           <div className="font-semibold text-forest text-sm flex items-center gap-2">
@@ -319,14 +321,16 @@ export default function SpeciesManagement() {
               key={sp.id}
               className="bg-white rounded-3xl overflow-hidden border border-forest/10 shadow-sm flex flex-col justify-between"
             >
-              <div className="aspect-[4/3] bg-sage/20 relative overflow-hidden">
+              <div className="aspect-[4/3] bg-sage/20 relative overflow-hidden flex items-center justify-center">
+                <Leaf className="w-12 h-12 text-sage/40 absolute" />
                 {sp.cover_photo_url ? (
-                  <img src={getImageUrl(sp.cover_photo_url)} alt="" className="w-full h-full object-cover" />
-                ) : (
-                  <div className="w-full h-full flex items-center justify-center text-sage/40">
-                    <Leaf className="w-12 h-12" />
-                  </div>
-                )}
+                  <img
+                    src={getImageUrl(sp.cover_photo_url)}
+                    alt=""
+                    className="w-full h-full object-cover relative z-1"
+                    onError={(e) => { e.currentTarget.style.display = 'none'; }}
+                  />
+                ) : null}
                 <div className="absolute top-3 left-3 flex items-center gap-1.5">
                   <span className="bg-forest/80 backdrop-blur-md text-cream text-[11px] font-semibold px-2.5 py-1 rounded-full">
                     {sp.category_name || 'Uncategorized'}

@@ -118,19 +118,19 @@ export default function SpeciesDetailPage() {
           {/* Main Visuals Column (7 cols) */}
           <div className="lg:col-span-7 space-y-6">
             {/* Primary Image Display */}
-            <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-forest-dark relative shadow-xl border border-forest/10">
+            <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-forest-dark relative shadow-xl border border-forest/10 flex items-center justify-center">
+              <div className="w-full h-full flex flex-col items-center justify-center text-cream/40 absolute inset-0">
+                <Leaf className="w-16 h-16 text-sage/40 mb-2" />
+                <p className="text-sm">No photo available</p>
+              </div>
               {selectedPhoto ? (
                 <img
                   src={getImageUrl(selectedPhoto)}
                   alt={species.common_name}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover relative z-1"
+                  onError={(e) => { e.currentTarget.style.display = 'none'; }}
                 />
-              ) : (
-                <div className="w-full h-full flex flex-col items-center justify-center text-cream/40">
-                  <Leaf className="w-16 h-16 text-sage/40 mb-2" />
-                  <p className="text-sm">No photo available</p>
-                </div>
-              )}
+              ) : null}
             </div>
 
             {/* Photo Thumbnails */}

@@ -174,8 +174,8 @@ router.post('/', authenticateToken, async (req, res) => {
     }
 
     const now = new Date().toISOString();
-    const pubVal = is_published === true || is_published === 1 || is_published === '1' ? 1 : 0;
-    const featVal = is_featured === true || is_featured === 1 || is_featured === '1' ? 1 : 0;
+    const pubVal = is_published === true || is_published === 1 || is_published === '1';
+    const featVal = is_featured === true || is_featured === 1 || is_featured === '1';
 
     const result = await query(
       `INSERT INTO species
@@ -241,10 +241,10 @@ router.put('/:id', authenticateToken, async (req, res) => {
     } = req.body;
 
     const pubVal = is_published !== undefined
-      ? (is_published === true || is_published === 1 || is_published === '1' ? 1 : 0)
+      ? (is_published === true || is_published === 1 || is_published === '1')
       : ex.is_published;
     const featVal = is_featured !== undefined
-      ? (is_featured === true || is_featured === 1 || is_featured === '1' ? 1 : 0)
+      ? (is_featured === true || is_featured === 1 || is_featured === '1')
       : ex.is_featured;
 
     const now = new Date().toISOString();

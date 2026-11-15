@@ -167,20 +167,20 @@ export default function ExplorePage() {
                   className="group bg-white rounded-2xl overflow-hidden border border-forest/10 hover:shadow-2xl transition-all duration-300 flex flex-col"
                 >
                   {/* Photo container */}
-                  <div className="aspect-[4/3] bg-sage/20 relative overflow-hidden">
+                  <div className="aspect-[4/3] bg-sage/20 relative overflow-hidden flex items-center justify-center">
+                    <div className="w-full h-full flex items-center justify-center bg-cream absolute inset-0">
+                      <Leaf className="w-14 h-14 text-sage/30" />
+                    </div>
                     {sp.cover_photo_url ? (
                       <img
                         src={getImageUrl(sp.cover_photo_url)}
                         alt={sp.common_name}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out relative z-1"
+                        onError={(e) => { e.currentTarget.style.display = 'none'; }}
                       />
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center bg-cream">
-                        <Leaf className="w-14 h-14 text-sage/30" />
-                      </div>
-                    )}
+                    ) : null}
                     {sp.category_name && (
-                      <span className="absolute top-4 left-4 bg-forest/80 backdrop-blur-md text-cream text-xs uppercase tracking-wider font-semibold px-3 py-1 rounded-full">
+                      <span className="absolute top-4 left-4 bg-forest/80 backdrop-blur-md text-cream text-xs uppercase tracking-wider font-semibold px-3 py-1 rounded-full z-2">
                         {sp.category_name}
                       </span>
                     )}
