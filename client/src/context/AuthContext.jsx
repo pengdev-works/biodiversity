@@ -16,9 +16,10 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const token = localStorage.getItem('abraventure_token');
+    const token = localStorage.getItem('biodiversity_token') || localStorage.getItem('abraventure_token');
     if (token) {
       api.get('/api/auth/me').then(data => setUser(data.user)).catch(() => {
+        localStorage.removeItem('biodiversity_token');
         localStorage.removeItem('abraventure_token');
       }).finally(() => setLoading(false));
     } else { setLoading(false); }
@@ -26,12 +27,13 @@ export function AuthProvider({ children }) {
 
   const login = async (username, password) => {
     const data = await api.post('/api/auth/login', { username, password });
-    localStorage.setItem('abraventure_token', data.token);
+    localStorage.setItem('biodiversity_token', data.token);
     setUser(data.user);
     return data;
   };
 
   const logout = () => {
+    localStorage.removeItem('biodiversity_token');
     localStorage.removeItem('abraventure_token');
     setUser(null);
   };

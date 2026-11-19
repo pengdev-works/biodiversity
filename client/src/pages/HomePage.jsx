@@ -52,34 +52,34 @@ export default function HomePage() {
           {/* Floating Pill Badge */}
           <div className="inline-flex items-center gap-2.5 sm:gap-3 bg-black/40 backdrop-blur-md border border-cream/20 px-3.5 sm:px-4 py-1.5 rounded-full mb-6 text-cream/90 text-xs shadow-xl max-w-full">
             <span className="relative flex h-2 w-2 shrink-0">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sage opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-sage"></span>
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
             </span>
-            <Leaf className="w-3.5 h-3.5 text-sage shrink-0" />
-            <span className="text-sage text-[10px] sm:text-xs font-semibold tracking-widest uppercase truncate">
-              Interactive Biodiversity Magazine
+            <Leaf className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+            <span className="text-emerald-300 text-[10px] sm:text-xs font-semibold tracking-widest uppercase truncate">
+              Natural Sciences Field Research Portal
             </span>
           </div>
 
-          <h1 className="font-display text-4xl sm:text-6xl md:text-8xl font-bold text-cream mb-4 sm:mb-6 leading-none tracking-tight drop-shadow-lg">
-            BIO<span className="text-sage">DIVERSITY</span>
+          <h1 className="font-display text-4xl sm:text-6xl md:text-8xl font-black text-cream mb-4 sm:mb-6 leading-none tracking-tight drop-shadow-lg">
+            BIO<span className="text-emerald-400">DIVERSITY</span>
           </h1>
           <p className="text-cream/90 text-base sm:text-xl md:text-2xl font-editorial italic mb-8 sm:mb-10 max-w-2xl mx-auto drop-shadow-md leading-relaxed px-2">
-            Discover the Hidden World of Biodiversity
+            Discover the Hidden World of Living Nature & Ecological Heritage
           </p>
 
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center w-full max-w-md mx-auto sm:max-w-none">
             <Link
-              to="/magazine"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-earth text-cream px-6 sm:px-8 py-3.5 sm:py-4 rounded-full font-semibold hover:bg-earth-dark active:scale-95 transition-all shadow-xl border border-cream/10 text-sm sm:text-base"
+              to="/explore"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#1b4332] hover:bg-[#2d6a4f] text-white px-7 sm:px-9 py-3.5 sm:py-4 rounded-full font-bold transition-all shadow-xl hover:scale-102 text-sm sm:text-base border border-emerald-400/30"
             >
-              <BookOpen className="w-5 h-5 shrink-0" /> Open Digital Magazine
+              <Leaf className="w-5 h-5 shrink-0" /> Explore Species Catalog
             </Link>
             <Link
-              to="/explore"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-black/30 backdrop-blur-sm border-2 border-cream/40 text-cream px-6 sm:px-8 py-3.5 sm:py-4 rounded-full font-medium hover:bg-cream/15 active:scale-95 transition-all shadow-lg text-sm sm:text-base"
+              to="/locations"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-black/40 backdrop-blur-md border-2 border-cream/30 text-cream px-6 sm:px-8 py-3.5 sm:py-4 rounded-full font-semibold hover:bg-white/10 active:scale-95 transition-all shadow-lg text-sm sm:text-base"
             >
-              Explore Species <ChevronRight className="w-5 h-5 shrink-0" />
+              <Globe2 className="w-5 h-5 shrink-0" /> Habitat Locations
             </Link>
           </div>
         </div>
@@ -103,10 +103,10 @@ export default function HomePage() {
         />
         <div className="max-w-7xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-6 text-center relative z-10">
           {[
-            { icon: <Dna className="w-5 h-5" />, label: 'Species Documented', val: 'Taxa Records' },
-            { icon: <Globe2 className="w-5 h-5" />, label: 'Locations Mapped', val: 'Field Coordinates' },
-            { icon: <Camera className="w-5 h-5" />, label: 'Photographs', val: 'Macro & Habitat' },
-            { icon: <BookOpen className="w-5 h-5" />, label: 'Digital Magazine', val: 'Interactive 3D' },
+            { icon: <Dna className="w-5 h-5 text-emerald-400" />, label: 'Species Documented', val: 'Taxa Records' },
+            { icon: <Globe2 className="w-5 h-5 text-emerald-400" />, label: 'Locations Mapped', val: 'Field Coordinates' },
+            { icon: <Camera className="w-5 h-5 text-emerald-400" />, label: 'Photographs', val: 'Macro & Habitat' },
+            { icon: <Box className="w-5 h-5 text-emerald-400" />, label: '3D Specimen Models', val: 'Interactive 360°' },
           ].map((s, i) => (
             <div
               key={i}
@@ -211,87 +211,75 @@ export default function HomePage() {
         )}
       </section>
 
-      {/* Magazine Preview */}
-      <section className="relative bg-forest-dark py-28 px-4 overflow-hidden text-cream border-y border-cream/10">
-        <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-25">
+      {/* Interactive 3D Specimen Technology Showcase */}
+      <section className="relative bg-[#163a2b] py-24 px-4 overflow-hidden text-cream border-y border-cream/10">
+        <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-20">
           <img
             src="/images/hero-forest.jpg"
             alt=""
             className="w-full h-full object-cover filter blur-[2px]"
           />
-          <div className="absolute inset-0 bg-forest-dark/80" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#11271d] via-[#163a2b] to-[#11271d]" />
         </div>
 
-        <div className="max-w-6xl mx-auto flex flex-col lg:flex-row items-center gap-16 relative z-10">
+        <div className="max-w-6xl mx-auto flex flex-col lg:flex-row items-center gap-14 relative z-10">
           <div className="flex-1">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-earth/20 border border-earth/40 text-earth-light text-xs uppercase tracking-widest font-semibold mb-4">
-              <BookOpen className="w-3.5 h-3.5" /> Interactive Field Edition
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 text-xs uppercase tracking-widest font-semibold mb-4">
+              <Box className="w-3.5 h-3.5" /> 3D Digital Anatomy
             </div>
-            <h2 className="font-display text-4xl sm:text-6xl font-bold mb-6 tracking-tight leading-tight">
-              {magazine ? magazine.title : 'The Living Magazine'}
+            <h2 className="font-display text-4xl sm:text-5xl font-black mb-5 tracking-tight leading-tight">
+              Interactive 3D Specimen Inspection
             </h2>
-            <p className="text-cream/80 font-editorial text-lg sm:text-xl italic leading-relaxed mb-8 max-w-xl">
-              {magazine
-                ? magazine.subtitle
-                : 'An immersive digital coffee table book documenting nature with physical page turns, high-definition plates, and interactive 3D specimens.'}
+            <p className="text-cream/80 text-base sm:text-lg leading-relaxed mb-8 max-w-xl">
+              Examine biological organisms from all perspectives. Rotate, zoom, and explore 3D morphological structures to study anatomy and adaptations without disrupting living wild ecosystems.
             </p>
             <div className="flex flex-wrap gap-4 items-center">
               <Link
-                to="/magazine"
-                className="inline-flex items-center gap-2 bg-earth hover:bg-earth-dark text-cream px-8 py-4 rounded-full font-semibold transition-all hover:scale-105 shadow-xl border border-cream/10"
+                to="/explore"
+                className="inline-flex items-center gap-2 bg-[#2d6a4f] hover:bg-[#40916c] text-white px-8 py-3.5 rounded-full font-bold transition-all hover:scale-105 shadow-xl border border-emerald-400/30"
               >
-                <BookOpen className="w-5 h-5" />
-                {magazine ? 'Read Latest Issue' : 'Open Digital Magazine'}
+                <Leaf className="w-4 h-4" />
+                <span>Explore 3D Catalog</span>
               </Link>
               <Link
                 to="/about"
-                className="inline-flex items-center gap-2 px-6 py-4 rounded-full text-cream/80 hover:text-cream border border-cream/20 hover:bg-white/10 transition-all text-sm font-medium"
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full text-cream/80 hover:text-white border border-cream/20 hover:bg-white/10 transition-all text-sm font-semibold"
               >
-                About The Technology
+                <span>About The Project</span>
               </Link>
             </div>
           </div>
 
-          <div className="flex-1 flex justify-center">
-            {/* Magazine 3D tilt preview card */}
-            <div className="relative w-72 sm:w-80 h-[430px] rounded-2xl magazine-shadow bg-gradient-to-b from-forest via-forest-dark to-black border-2 border-earth/40 flex flex-col justify-between p-6 text-cream shadow-2xl transform hover:rotate-1 hover:scale-105 transition-all duration-500 overflow-hidden group">
-              {magazine?.cover_photo_url ? (
-                <img
-                  src={magazine.cover_photo_url}
-                  alt={magazine.title}
-                  className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-700"
-                />
-              ) : (
-                <img
-                  src="/images/hero-forest.jpg"
-                  alt=""
-                  className="absolute inset-0 w-full h-full object-cover opacity-35"
-                />
-              )}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-black/60 pointer-events-none" />
-
-              {/* Decorative inner gold border */}
-              <div className="absolute inset-3 border border-earth/30 pointer-events-none rounded-xl" />
-
-              <div className="relative z-10 flex items-center justify-between">
-                <span className="text-sage text-[10px] uppercase font-mono tracking-widest font-semibold">
-                  Field Edition
+          <div className="flex-1 flex justify-center w-full max-w-md">
+            {/* 3D Showcase Card */}
+            <div className="w-full bg-[#111c16] rounded-3xl border border-emerald-500/30 shadow-2xl p-6 relative flex flex-col justify-between group overflow-hidden">
+              <div className="flex items-center justify-between mb-4 pb-3 border-b border-white/10">
+                <span className="text-emerald-400 text-xs uppercase font-mono tracking-widest font-bold flex items-center gap-2">
+                  <Box className="w-4 h-4" /> 3D Structural Specimen
                 </span>
-                <Leaf className="w-4 h-4 text-sage" />
+                <span className="text-[10px] bg-emerald-950/80 text-emerald-300 border border-emerald-500/30 px-2.5 py-0.5 rounded-full font-mono">
+                  360° Orbit View
+                </span>
               </div>
 
-              <div className="relative z-10 text-center px-4 my-auto">
-                <h3 className="font-display text-3xl font-bold tracking-tight text-cream drop-shadow-md">
-                  {magazine?.title || 'BIODIVERSITY'}
-                </h3>
-                <p className="text-earth-light text-xs italic font-editorial mt-2 drop-shadow">
-                  {magazine?.edition || 'Vol. 1 — Inaugural Edition'}
-                </p>
+              <div className="aspect-square rounded-2xl bg-gradient-to-b from-stone-900 to-black overflow-hidden relative flex items-center justify-center border border-white/10 shadow-inner">
+                <img
+                  src="/images/hero-specimen.jpg"
+                  alt="3D Specimen Model"
+                  className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700"
+                />
+                <div className="absolute inset-0 bg-radial from-transparent to-black/60 pointer-events-none" />
+                <div className="absolute inset-x-4 bottom-4 bg-black/70 backdrop-blur-md rounded-xl p-3 border border-white/10 flex items-center justify-between text-xs text-cream/90">
+                  <span className="font-semibold">Drag to rotate 360°</span>
+                  <span className="text-emerald-400 font-mono text-[10px]">WebGL Powered</span>
+                </div>
               </div>
 
-              <div className="relative z-10 flex items-center justify-between pt-3 border-t border-cream/20 text-[11px] text-cream/70 font-mono">
-                <span>Authentic Page Turn</span>
-                <span className="text-sage">Flipbook &rarr;</span>
+              <div className="pt-4 flex items-center justify-between text-xs text-cream/70 font-mono">
+                <span>Interactive Biology</span>
+                <Link to="/explore" className="text-emerald-400 hover:text-emerald-300 font-semibold flex items-center gap-1">
+                  View in Catalog &rarr;
+                </Link>
               </div>
             </div>
           </div>
@@ -362,7 +350,7 @@ export default function HomePage() {
               Meet the Developers
             </h2>
             <p className="font-editorial italic text-cream/80 text-base sm:text-lg leading-relaxed">
-              A collaborative effort by BSIT and BTLED students to bring you this Biodiversity Flipbook.
+              A collaborative effort by BSIT and BTLED students to build this Biodiversity Web Portal.
             </p>
           </div>
 
@@ -379,7 +367,7 @@ export default function HomePage() {
                   </h3>
                 </div>
                 <p className="text-cream/70 text-xs sm:text-sm font-editorial italic mt-1.5">
-                  Students responsible for designing and developing the Biodiversity Flipbook system.
+                  Students responsible for designing and developing the Biodiversity Web Portal.
                 </p>
               </div>
               <span className="text-[11px] font-mono text-sage uppercase tracking-wider">

@@ -8,7 +8,7 @@ export function getImageUrl(path) {
 }
 
 async function request(path, options = {}) {
-  const token = localStorage.getItem('abraventure_token');
+  const token = localStorage.getItem('biodiversity_token') || localStorage.getItem('abraventure_token');
   const headers = { 'Content-Type': 'application/json', ...options.headers };
   if (token) headers['Authorization'] = `Bearer ${token}`;
   const res = await fetch(`${BASE}${path}`, { ...options, headers });
@@ -25,7 +25,7 @@ export const api = {
   put: (path, body) => request(path, { method: 'PUT', body: JSON.stringify(body) }),
   delete: (path) => request(path, { method: 'DELETE' }),
   upload: (path, formData, method = 'POST') => {
-    const token = localStorage.getItem('abraventure_token');
+    const token = localStorage.getItem('biodiversity_token') || localStorage.getItem('abraventure_token');
     const headers = {};
     if (token) headers['Authorization'] = `Bearer ${token}`;
     return fetch(`${BASE}${path}`, { method, body: formData, headers }).then(async (r) => {

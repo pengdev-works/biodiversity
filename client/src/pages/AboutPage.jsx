@@ -48,21 +48,21 @@ export default function AboutPage() {
         <div className="bg-white rounded-3xl p-6 sm:p-12 shadow-sm border border-forest/10 space-y-8">
           <div>
             <h2 className="font-display text-2xl sm:text-3xl font-bold text-forest mb-4">
-              The Digital Coffee Table Book Concept
+              The Digital Biodiversity Science Portal
             </h2>
             <p className="font-editorial text-forest/80 text-base sm:text-lg leading-relaxed drop-cap">
-              BIODIVERSITY reimagines the timeless pleasure of opening a luxury nature coffee table book. Instead of conventional flat web pages, our reader is built with authentic physical page curvature, page shadows, and tactile corner drag interactions. Every volume is curated with field photographs, location mappings, and interactive 3D specimens that readers can freely manipulate.
+              BIODIVERSITY is an interactive digital science portal dedicated to documenting and preserving regional flora, fauna, and fungi. Combining field observation photography, taxonomic data, habitat mapping, and interactive 3D specimens, this web platform brings biological sciences to life for researchers, educators, students, and conservationists.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-6 border-t border-forest/10">
             <div className="space-y-2">
               <div className="w-10 h-10 rounded-xl bg-sage/20 text-forest flex items-center justify-center">
-                <BookOpen className="w-5 h-5 text-forest" />
+                <Leaf className="w-5 h-5 text-forest" />
               </div>
-              <h3 className="font-display font-bold text-forest">Authentic Flipbook</h3>
+              <h3 className="font-display font-bold text-forest">Digital Field Dossiers</h3>
               <p className="text-xs text-forest/60 leading-relaxed">
-                Realistic two-page spreads with page curvature, physics-based flip animations, and acoustic feedback.
+                Comprehensive species cataloging with high-definition photography, taxonomy structures, and verified field observation records.
               </p>
             </div>
 
