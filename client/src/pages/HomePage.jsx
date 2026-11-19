@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { BookOpen, Leaf, ChevronRight, Globe2, Camera, Dna, Users, Sparkles, Mail, Github, Linkedin, Code2, GraduationCap } from 'lucide-react';
+import { BookOpen, Leaf, ChevronRight, Globe2, Camera, Dna, Users, Sparkles, Mail, Github, Linkedin, Code2, GraduationCap, Box } from 'lucide-react';
 import { api, getImageUrl } from '../utils/api';
 
 export default function HomePage() {
