@@ -17,20 +17,21 @@ const { Pool } = pg;
 const NEON_DEFAULT_URL = 'postgresql://neondb_owner:npg_n8WtJ5KIdowQ@ep-little-cherry-aok5bhbb-pooler.c-2.ap-southeast-1.aws.neon.tech/neondb?sslmode=require';
 
 const connectionString = process.env.DATABASE_URL || NEON_DEFAULT_URL;
+const isLocalhost = Boolean(connectionString && (connectionString.includes('localhost') || connectionString.includes('127.0.0.1')));
 
 const pgPool = new Pool({
   connectionString,
-  ssl: { rejectUnauthorized: false },
+  ssl: isLocalhost ? false : { rejectUnauthorized: false },
   max: 20,
   idleTimeoutMillis: 30000,
   connectionTimeoutMillis: 10000
 });
 
 pgPool.on('error', (err) => {
-  console.error('[Neon Postgres Pool Error]', err);
+  console.error('[PostgreSQL Pool Error]', err);
 });
 
-console.log('✓ Initialized Neon PostgreSQL Pool');
+console.log(`✓ Initialized PostgreSQL Pool (${isLocalhost ? 'Localhost / pgAdmin 4' : 'Cloud / Neon'})`);
 
 const pgSchema = `
 CREATE TABLE IF NOT EXISTS admin_users (
