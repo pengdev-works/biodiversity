@@ -3,11 +3,15 @@
  * ABRAVENTURE / BIODIVERSITY backend entry point.
  */
 
-import express from 'express';
-import cors from 'cors';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import 'dotenv/config';
+import dotenv from 'dotenv';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+dotenv.config({ path: path.join(__dirname, '..', '.env') });
+
+import express from 'express';
+import cors from 'cors';
 
 import { initializeDatabase } from './db.js';
 import authRouter from './routes/auth.js';
@@ -20,7 +24,6 @@ import publicRouter from './routes/public.js';
 import teamRouter from './routes/team.js';
 import contributorsRouter from './routes/contributors.js';
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
 const PORT = process.env.PORT || 5001;
 
