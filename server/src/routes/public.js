@@ -59,8 +59,14 @@ router.get('/species', async (req, res) => {
     const params = [];
 
     if (category) {
-      params.push(category);
-      conditions.push(`(s.category_id = $${params.length} OR c.name = $${params.length})`);
+      const isNum = !isNaN(Number(category)) && !isNaN(parseInt(category, 10));
+      if (isNum) {
+        params.push(parseInt(category, 10));
+        conditions.push(`s.category_id = $${params.length}`);
+      } else {
+        params.push(`%${category.trim().toLowerCase()}%`);
+        conditions.push(`LOWER(c.name) LIKE $${params.length}`);
+      }
     }
 
     if (search && search.trim()) {

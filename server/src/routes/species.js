@@ -74,7 +74,7 @@ router.get('/', async (req, res) => {
     }
 
     if (category_id) {
-      params.push(category_id);
+      params.push(parseInt(category_id, 10));
       conditions.push(`s.category_id = $${params.length}`);
     }
 
