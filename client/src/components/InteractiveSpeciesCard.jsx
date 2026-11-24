@@ -126,85 +126,73 @@ export default function InteractiveSpeciesCard({
   const [activeTab, setActiveTab] = useState('taxonomy'); // 'taxonomy' | 'ecology' | 'characteristics'
   const [dossierDownloaded, setDossierDownloaded] = useState(false);
 
-  // Directly fetch all published species from the Neon database to populate the card
+  // Sync specimens when extraSpecies or initialSpeciesId changes
   useEffect(() => {
-    let isMounted = true;
+    const sourceList = (extraSpecies && extraSpecies.length > 0) ? extraSpecies : null;
+    if (!sourceList) return;
 
-    // Fetch species catalog from Neon
-    fetch('/api/public/species?limit=30')
-      .then((r) => r.json())
-      .then((data) => {
-        if (!isMounted || !data.species || data.species.length === 0) return;
+    const mapped = sourceList.map((sp) => {
+      const isPlant = (sp.category_name || sp.category || '').toLowerCase().includes('plant');
+      const isInsect = (sp.category_name || sp.category || '').toLowerCase().includes('insect');
 
-        const dbSpecies = data.species.map((sp) => {
-          const isPlant = (sp.category_name || '').toLowerCase().includes('plant');
-          const isInsect = (sp.category_name || '').toLowerCase().includes('insect');
+      let modelUrl = sp.model_3d_url;
+      if (!modelUrl && sp.models && sp.models.length > 0) {
+        modelUrl = sp.models[0].url;
+      }
+      if (!modelUrl && sp.common_name?.toLowerCase().includes('dragonfly')) {
+        modelUrl = '/models/dragonfly_3d_model.glb';
+      }
 
-          // Generate or assign realistic 3D model if available
-          let modelUrl = sp.model_3d_url;
-          if (!modelUrl && sp.models && sp.models.length > 0) {
-            modelUrl = sp.models[0].url;
-          }
-          // The dragonfly reference model
-          if (!modelUrl && sp.common_name?.toLowerCase().includes('dragonfly')) {
-            modelUrl = '/models/dragonfly_3d_model.glb';
-          }
+      let imgUrl = sp.image_url || sp.cover_photo_url || (sp.photos && sp.photos[0] ? sp.photos[0].url : null);
+      if (!imgUrl) {
+        imgUrl = isPlant
+          ? 'https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?auto=format&fit=crop&w=1200&q=80'
+          : 'https://images.unsplash.com/photo-1579613832125-5d34a13ffe0a?auto=format&fit=crop&w=1200&q=80';
+      }
 
-          // Use real database image or authentic photo
-          let imgUrl = sp.cover_photo_url || (sp.photos && sp.photos[0] ? sp.photos[0].url : null);
-          if (!imgUrl) {
-            imgUrl = isPlant
-              ? 'https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?auto=format&fit=crop&w=1200&q=80'
-              : 'https://images.unsplash.com/photo-1579613832125-5d34a13ffe0a?auto=format&fit=crop&w=1200&q=80';
-          }
+      return {
+        id: sp.id,
+        common_name: sp.common_name,
+        scientific_name: sp.scientific_name || 'Pending Verification',
+        category: sp.category_name || sp.category || (isPlant ? 'Plants' : isInsect ? 'Insects' : 'Specimen'),
+        conservation_status: sp.conservation_status || 'Least Concern',
+        image_url: imgUrl,
+        model_3d_url: modelUrl,
+        has_3d_model: Boolean(modelUrl),
+        description:
+          sp.description ||
+          `Documented biodiversity specimen recorded in the University of Abra research catalog from ${sp.location || 'regional forest ecosystems'}.`,
+        kingdom: isPlant ? 'Plantae' : 'Animalia',
+        phylum: isPlant ? 'Tracheophyta' : isInsect ? 'Arthropoda' : 'Chordata',
+        class: isPlant ? 'Magnoliopsida' : isInsect ? 'Insecta' : 'Fauna',
+        order: isInsect ? 'Odonata / Coleoptera' : 'Pending Verification',
+        family: 'University Field Record',
+        genus: sp.scientific_name ? sp.scientific_name.split(' ')[0] : 'Pending',
+        species: sp.scientific_name || 'Pending Verification',
+        habitat: sp.habitat || 'Abra forest systems and natural reserve biomes.',
+        geographic_distribution: sp.location || 'Abra Province, Northern Luzon, Philippines',
+        characteristics:
+          sp.characteristics ||
+          'Authentic morphological data documented by University of Abra field researchers.',
+        diet: isPlant ? 'Autotrophic / Photosynthetic' : 'Specialized ecological niche in local biomes.',
+        behavior: 'Diurnal activity documented in native wild habitat.',
+        ecological_importance:
+          'Vital bio-indicator contributing to provincial ecological resilience and biodiversity stability.'
+      };
+    });
 
-          return {
-            id: sp.id,
-            common_name: sp.common_name,
-            scientific_name: sp.scientific_name || 'Pending Verification',
-            category: sp.category_name || (isPlant ? 'Plants' : isInsect ? 'Insects' : 'Specimen'),
-            conservation_status: sp.conservation_status || 'Least Concern',
-            image_url: imgUrl,
-            model_3d_url: modelUrl,
-            has_3d_model: Boolean(modelUrl),
-            description:
-              sp.description ||
-              `Documented biodiversity specimen recorded in the University of Abra research catalog from ${sp.location || 'regional forest ecosystems'}.`,
-            kingdom: isPlant ? 'Plantae' : 'Animalia',
-            phylum: isPlant ? 'Tracheophyta' : isInsect ? 'Arthropoda' : 'Chordata',
-            class: isPlant ? 'Magnoliopsida' : isInsect ? 'Insecta' : 'Fauna',
-            order: isInsect ? 'Odonata / Coleoptera' : 'Pending Verification',
-            family: 'University Field Record',
-            genus: sp.scientific_name ? sp.scientific_name.split(' ')[0] : 'Pending',
-            species: sp.scientific_name || 'Pending Verification',
-            habitat: sp.habitat || 'Abra forest systems and natural reserve biomes.',
-            geographic_distribution: sp.location || 'Abra Province, Northern Luzon, Philippines',
-            characteristics:
-              sp.characteristics ||
-              'Authentic morphological data documented by University of Abra field researchers.',
-            diet: isPlant ? 'Autotrophic / Photosynthetic' : 'Specialized ecological niche in local biomes.',
-            behavior: 'Diurnal activity documented in native wild habitat.',
-            ecological_importance:
-              'Vital bio-indicator contributing to provincial ecological resilience and biodiversity stability.'
-          };
-        });
+    const combined = [
+      DEFAULT_SPECIMENS[0],
+      ...mapped.filter((s) => s.common_name !== DEFAULT_SPECIMENS[0].common_name)
+    ];
 
-        // Curated specimens: primary Amber Dragonfly first, then all diverse Neon DB species
-        const allList = [
-          DEFAULT_SPECIMENS[0],
-          ...dbSpecies.filter((s) => s.common_name !== DEFAULT_SPECIMENS[0].common_name)
-        ];
+    setSpecimens(combined);
 
-        setSpecimens(allList);
-      })
-      .catch((err) => {
-        console.error('Failed to load Neon species into 3D card:', err);
-      });
-
-    return () => {
-      isMounted = false;
-    };
-  }, []);
+    if (initialSpeciesId) {
+      const idx = combined.findIndex((s) => String(s.id) === String(initialSpeciesId));
+      if (idx !== -1) setCurrentIndex(idx);
+    }
+  }, [extraSpecies, initialSpeciesId]);
 
   const currentSpecimen = specimens[currentIndex] || DEFAULT_SPECIMENS[0];
 

@@ -6,6 +6,7 @@ import InteractiveSpeciesCard from '../components/InteractiveSpeciesCard';
 
 export default function HomePage() {
   const [featured, setFeatured] = useState([]);
+  const [allSpecies, setAllSpecies] = useState([]);
   const [magazine, setMagazine] = useState(null);
   const [bsitContributors, setBsitContributors] = useState([]);
   const [btledContributors, setBtledContributors] = useState([]);
@@ -14,10 +15,12 @@ export default function HomePage() {
   useEffect(() => {
     Promise.allSettled([
       api.get('/api/public/featured'),
+      api.get('/api/public/species?limit=30'),
       api.get('/api/magazine/public'),
       api.get('/api/public/contributors')
-    ]).then(([feat, mag, contribRes]) => {
+    ]).then(([feat, spec, mag, contribRes]) => {
       if (feat.status === 'fulfilled') setFeatured(feat.value?.species || []);
+      if (spec.status === 'fulfilled') setAllSpecies(spec.value?.species || []);
       if (mag.status === 'fulfilled') setMagazine(mag.value?.publication || null);
       if (contribRes.status === 'fulfilled') {
         setBsitContributors(contribRes.value?.bsit || []);
@@ -251,7 +254,7 @@ export default function HomePage() {
           </div>
 
           {/* Master Interactive 3D Card with Amber Dragonfly Reference Specimen */}
-          <InteractiveSpeciesCard extraSpecies={featured} />
+          <InteractiveSpeciesCard extraSpecies={allSpecies.length > 0 ? allSpecies : featured} />
         </div>
       </section>
 
