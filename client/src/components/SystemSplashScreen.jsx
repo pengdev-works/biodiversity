@@ -7,43 +7,34 @@ import { Sparkles } from 'lucide-react';
  * Renders on initial application launch with smooth progress animation,
  * revealing the University of Abra seal, UABioSphere emblem, and natural science indicators.
  */
-export default function SystemSplashScreen({ minDuration = 1800, onFinished }) {
+export default function SystemSplashScreen({ minDuration = 1900, onFinished }) {
   const [isVisible, setIsVisible] = useState(true);
   const [fadeOut, setFadeOut] = useState(false);
-  const [progress, setProgress] = useState(12);
+  const [progress, setProgress] = useState(15);
   const [statusText, setStatusText] = useState('Initializing UABioSphere Natural Sciences Portal...');
 
   useEffect(() => {
-    // Only show once per session or on full reload
-    const hasLoaded = sessionStorage.getItem('uabiosphere_splash_shown');
-    if (hasLoaded) {
-      setIsVisible(false);
-      if (onFinished) onFinished();
-      return;
-    }
-
     const t1 = setTimeout(() => {
-      setProgress(45);
+      setProgress(48);
       setStatusText('Connecting to University of Abra Biodiversity Registry...');
-    }, 400);
+    }, 450);
 
     const t2 = setTimeout(() => {
-      setProgress(78);
+      setProgress(82);
       setStatusText('Loading 3D Specimen Morphologies & Ecological Catalog...');
-    }, 900);
+    }, 950);
 
     const t3 = setTimeout(() => {
       setProgress(100);
       setStatusText('UABioSphere Ready.');
-    }, 1400);
+    }, 1450);
 
     const tEnd = setTimeout(() => {
       setFadeOut(true);
       setTimeout(() => {
         setIsVisible(false);
-        sessionStorage.setItem('uabiosphere_splash_shown', 'true');
         if (onFinished) onFinished();
-      }, 600);
+      }, 650);
     }, minDuration);
 
     return () => {
@@ -58,7 +49,7 @@ export default function SystemSplashScreen({ minDuration = 1800, onFinished }) {
 
   return (
     <div
-      className={`fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#051109] transition-opacity duration-700 select-none ${
+      className={`fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#051109] transition-opacity duration-700 select-none ${
         fadeOut ? 'opacity-0 pointer-events-none' : 'opacity-100'
       }`}
     >
