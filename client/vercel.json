@@ -1,6 +1,10 @@
 {
   "rewrites": [
     {
+      "source": "/api/:path*",
+      "destination": "https://biodiversity-unig.onrender.com/api/:path*"
+    },
+    {
       "source": "/uploads/:path*",
       "destination": "https://biodiversity-unig.onrender.com/uploads/:path*"
     },

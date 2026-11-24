@@ -1,4 +1,4 @@
-const BASE = import.meta.env.VITE_API_URL || '';
+const BASE = import.meta.env.VITE_API_URL || (import.meta.env.PROD ? 'https://biodiversity-unig.onrender.com' : '');
 
 export function getImageUrl(path) {
   if (!path) return '';
