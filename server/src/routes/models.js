@@ -111,7 +111,7 @@ router.post('/species/:speciesId', authenticateToken, (req, res) => {
 
       const insertResult = await query(
         `INSERT INTO species_3d_models (species_id, url, format, filename, file_size, status)
-         VALUES ($1, $2, $3, $4, $5, 'uploaded')
+         VALUES ($1, $2, $3, $4, $5, 'approved')
          RETURNING *`,
         [speciesId, fileUrl, ext, req.file.originalname, req.file.size]
       );

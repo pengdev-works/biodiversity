@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { BookOpen, Leaf, ChevronRight, Globe2, Camera, Dna, Users, Sparkles, Mail, Github, Linkedin, Code2, GraduationCap, Box } from 'lucide-react';
 import { api, getImageUrl } from '../utils/api';
+import InteractiveSpeciesCard from '../components/InteractiveSpeciesCard';
 
 export default function HomePage() {
   const [featured, setFeatured] = useState([]);
@@ -212,77 +213,32 @@ export default function HomePage() {
       </section>
 
       {/* Interactive 3D Specimen Technology Showcase */}
-      <section className="relative bg-[#163a2b] py-24 px-4 overflow-hidden text-cream border-y border-cream/10">
+      <section className="relative bg-[#06140b] py-20 px-4 overflow-hidden text-cream border-y border-emerald-500/20">
         <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-20">
           <img
             src="/images/hero-forest.jpg"
             alt=""
-            className="w-full h-full object-cover filter blur-[2px]"
+            className="w-full h-full object-cover filter blur-[4px]"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#11271d] via-[#163a2b] to-[#11271d]" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#06140b] via-[#06140b]/90 to-[#06140b]" />
         </div>
 
-        <div className="max-w-6xl mx-auto flex flex-col lg:flex-row items-center gap-14 relative z-10">
-          <div className="flex-1">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 text-xs uppercase tracking-widest font-semibold mb-4">
-              <Box className="w-3.5 h-3.5" /> 3D Digital Anatomy
+        <div className="relative z-10 max-w-7xl mx-auto">
+          <div className="text-center max-w-3xl mx-auto mb-10">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/15 border border-emerald-400/30 text-emerald-300 text-xs uppercase tracking-widest font-semibold mb-3">
+              <Box className="w-3.5 h-3.5 text-emerald-400" />
+              <span>Three.js 3D Specimen & Parallax Showcase</span>
             </div>
-            <h2 className="font-display text-4xl sm:text-5xl font-black mb-5 tracking-tight leading-tight">
-              Interactive 3D Specimen Inspection
+            <h2 className="font-display text-3xl sm:text-5xl font-black text-white tracking-tight leading-tight">
+              Interactive Biodiversity Specimen Viewer
             </h2>
-            <p className="text-cream/80 text-base sm:text-lg leading-relaxed mb-8 max-w-xl">
-              Examine biological organisms from all perspectives. Rotate, zoom, and explore 3D morphological structures to study anatomy and adaptations without disrupting living wild ecosystems.
+            <p className="text-emerald-200/75 text-sm sm:text-base mt-3 max-w-2xl mx-auto">
+              Inspect biological specimens through ultra high-definition depth parallax photography and interactive Three.js 3D polygonal geometry with 360° rotation and zoom.
             </p>
-            <div className="flex flex-wrap gap-4 items-center">
-              <Link
-                to="/explore"
-                className="inline-flex items-center gap-2 bg-[#2d6a4f] hover:bg-[#40916c] text-white px-8 py-3.5 rounded-full font-bold transition-all hover:scale-105 shadow-xl border border-emerald-400/30"
-              >
-                <Leaf className="w-4 h-4" />
-                <span>Explore 3D Catalog</span>
-              </Link>
-              <Link
-                to="/about"
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full text-cream/80 hover:text-white border border-cream/20 hover:bg-white/10 transition-all text-sm font-semibold"
-              >
-                <span>About The Project</span>
-              </Link>
-            </div>
           </div>
 
-          <div className="flex-1 flex justify-center w-full max-w-md">
-            {/* 3D Showcase Card */}
-            <div className="w-full bg-[#111c16] rounded-3xl border border-emerald-500/30 shadow-2xl p-6 relative flex flex-col justify-between group overflow-hidden">
-              <div className="flex items-center justify-between mb-4 pb-3 border-b border-white/10">
-                <span className="text-emerald-400 text-xs uppercase font-mono tracking-widest font-bold flex items-center gap-2">
-                  <Box className="w-4 h-4" /> 3D Structural Specimen
-                </span>
-                <span className="text-[10px] bg-emerald-950/80 text-emerald-300 border border-emerald-500/30 px-2.5 py-0.5 rounded-full font-mono">
-                  360° Orbit View
-                </span>
-              </div>
-
-              <div className="aspect-square rounded-2xl bg-gradient-to-b from-stone-900 to-black overflow-hidden relative flex items-center justify-center border border-white/10 shadow-inner">
-                <img
-                  src="/images/hero-specimen.jpg"
-                  alt="3D Specimen Model"
-                  className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700"
-                />
-                <div className="absolute inset-0 bg-radial from-transparent to-black/60 pointer-events-none" />
-                <div className="absolute inset-x-4 bottom-4 bg-black/70 backdrop-blur-md rounded-xl p-3 border border-white/10 flex items-center justify-between text-xs text-cream/90">
-                  <span className="font-semibold">Drag to rotate 360°</span>
-                  <span className="text-emerald-400 font-mono text-[10px]">WebGL Powered</span>
-                </div>
-              </div>
-
-              <div className="pt-4 flex items-center justify-between text-xs text-cream/70 font-mono">
-                <span>Interactive Biology</span>
-                <Link to="/explore" className="text-emerald-400 hover:text-emerald-300 font-semibold flex items-center gap-1">
-                  View in Catalog &rarr;
-                </Link>
-              </div>
-            </div>
-          </div>
+          {/* Master Interactive 3D Card with Amber Dragonfly Reference Specimen */}
+          <InteractiveSpeciesCard extraSpecies={featured} />
         </div>
       </section>
 

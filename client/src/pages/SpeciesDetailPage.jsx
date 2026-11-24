@@ -20,6 +20,8 @@ import {
   Share2
 } from 'lucide-react';
 import ThreeDViewer from '../components/ThreeDViewer.jsx';
+import SpeciesPhotoParallax from '../components/SpeciesPhotoParallax.jsx';
+import SpeciesThreeDViewer from '../components/SpeciesThreeDViewer.jsx';
 import { api, getImageUrl } from '../utils/api';
 
 export default function SpeciesDetailPage() {
@@ -262,18 +264,18 @@ Generated at: ${new Date().toLocaleString()}
               </div>
 
               {/* Viewer Canvas or Photo */}
-              <div className="aspect-[4/3] w-full flex items-center justify-center relative overflow-hidden bg-radial from-stone-900 to-black">
+              <div className="w-full flex items-center justify-center relative overflow-hidden bg-radial from-stone-900 to-black">
                 {viewMode === '3d' && approvedModel ? (
-                  <ThreeDViewer modelUrl={approvedModel.url} className="w-full h-full min-h-[360px]" />
+                  <SpeciesThreeDViewer modelUrl={getImageUrl(approvedModel.url)} speciesName={species.common_name} />
                 ) : selectedPhoto ? (
-                  <img
+                  <SpeciesPhotoParallax
                     src={getImageUrl(selectedPhoto)}
                     alt={species.common_name}
-                    className="w-full h-full object-cover"
-                    onError={(e) => { e.currentTarget.style.display = 'none'; }}
+                    category={species.category_name}
+                    status={species.conservation_status}
                   />
                 ) : (
-                  <div className="text-center text-stone-500 p-8">
+                  <div className="text-center text-stone-500 p-8 min-h-[360px] flex flex-col items-center justify-center">
                     <Leaf className="w-16 h-16 text-emerald-800/60 mx-auto mb-2" />
                     <p className="text-xs uppercase tracking-widest font-mono">No Specimen Visual Available</p>
                   </div>
