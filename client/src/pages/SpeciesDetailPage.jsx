@@ -567,11 +567,11 @@ Generated at: ${new Date().toLocaleString()}
             </div>
 
             {/* Bottom Action Buttons Matching Mockup */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+            <div className="pt-2">
               {/* Download Species Info Button */}
               <button
                 onClick={handleDownload}
-                className="inline-flex items-center justify-center gap-2 bg-[#1b4332] hover:bg-[#2d6a4f] text-white py-3.5 px-5 rounded-2xl font-semibold text-xs sm:text-sm transition-all shadow-sm hover:shadow-md cursor-pointer"
+                className="w-full inline-flex items-center justify-center gap-2 bg-[#1b4332] hover:bg-[#2d6a4f] text-white py-3.5 px-5 rounded-2xl font-semibold text-xs sm:text-sm transition-all shadow-sm hover:shadow-md cursor-pointer"
               >
                 {downloadSuccess ? (
                   <>
@@ -582,28 +582,6 @@ Generated at: ${new Date().toLocaleString()}
                   <>
                     <Download className="w-4 h-4" />
                     <span>Download Species Info</span>
-                  </>
-                )}
-              </button>
-
-              {/* Listen Audio Button */}
-              <button
-                onClick={handleSpeech}
-                className={`inline-flex items-center justify-center gap-2 py-3.5 px-5 rounded-2xl font-semibold text-xs sm:text-sm transition-all border shadow-xs cursor-pointer ${
-                  isSpeaking
-                    ? 'bg-rose-50 text-rose-700 border-rose-300 animate-pulse'
-                    : 'bg-white hover:bg-stone-50 text-stone-700 border-stone-300'
-                }`}
-              >
-                {isSpeaking ? (
-                  <>
-                    <VolumeX className="w-4 h-4 text-rose-600" />
-                    <span>Stop Audio</span>
-                  </>
-                ) : (
-                  <>
-                    <Volume2 className="w-4 h-4 text-emerald-700" />
-                    <span>Listen Audio</span>
                   </>
                 )}
               </button>

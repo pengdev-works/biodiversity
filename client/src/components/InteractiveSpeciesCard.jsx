@@ -577,23 +577,11 @@ Archived via Abra Biodiversity Preservation Center
             )}
           </div>
 
-          {/* Action Toolbar: Listen Audio, Download Dossier, Explore Link */}
+          {/* Action Toolbar: Download Dossier, Explore Link */}
           <div className="pt-6 mt-6 border-t border-emerald-500/20 flex flex-wrap items-center gap-2.5">
             <button
-              onClick={handleSpeak}
-              className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold tracking-wider uppercase transition-all ${
-                isSpeaking
-                  ? 'bg-rose-500/20 text-rose-300 border border-rose-500/40 animate-pulse'
-                  : 'bg-emerald-950/70 hover:bg-emerald-900/80 text-emerald-300 border border-emerald-500/30'
-              }`}
-            >
-              <Volume2 className="w-3.5 h-3.5" />
-              <span>{isSpeaking ? 'Pause Audio' : 'Audio Guide'}</span>
-            </button>
-
-            <button
               onClick={handleDownloadDossier}
-              className="flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold tracking-wider uppercase bg-emerald-950/70 hover:bg-emerald-900/80 text-emerald-300 border border-emerald-500/30 transition-all"
+              className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold tracking-wider uppercase bg-emerald-950/70 hover:bg-emerald-900/80 text-emerald-300 border border-emerald-500/30 transition-all"
             >
               {dossierDownloaded ? (
                 <>

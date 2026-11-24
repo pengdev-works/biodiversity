@@ -50,7 +50,6 @@ export default function AdminDashboard() {
     { title: 'Taxonomic Categories', count: stats.category_count, icon: FolderOpen, link: '/secure-admin-portal/categories', color: 'bg-amber-50 text-amber-800 border-amber-200' },
     { title: 'Photographs', count: stats.photo_count, icon: ImageIcon, link: '/secure-admin-portal/photos', color: 'bg-blue-50 text-blue-800 border-blue-200' },
     { title: '3D Specimens', count: stats.model_count, icon: Box, link: '/secure-admin-portal/models', color: 'bg-purple-50 text-purple-800 border-purple-200' },
-    { title: 'Active Publications', count: stats.published_magazines, icon: BookOpen, link: '/secure-admin-portal/magazine', color: 'bg-rose-50 text-rose-800 border-rose-200' },
     { title: 'Student Contributors', count: stats.contributors_count, icon: Users, link: '/secure-admin-portal/contributors', color: 'bg-teal-50 text-teal-800 border-teal-200' },
   ];
 
@@ -75,7 +74,7 @@ export default function AdminDashboard() {
             Biodiversity Management Studio
           </h1>
           <p className="font-editorial italic text-cream/80 text-sm sm:text-base mt-2 max-w-xl leading-relaxed">
-            Curate field research, upload scientific photographs and 3D specimens, and compose digital flipbook editions.
+            Curate field research, manage taxonomy categories, upload high-definition photography and interactive 3D specimens.
           </p>
         </div>
 
@@ -87,16 +86,16 @@ export default function AdminDashboard() {
             <Plus className="w-4 h-4" /> Add Species
           </Link>
           <Link
-            to="/secure-admin-portal/magazine"
-            className="inline-flex items-center gap-2 bg-earth hover:bg-earth-dark text-cream px-5 py-3 rounded-full text-xs font-semibold transition shadow-lg border border-cream/10"
+            to="/secure-admin-portal/models"
+            className="inline-flex items-center gap-2 bg-forest-light hover:bg-forest text-cream px-5 py-3 rounded-full text-xs font-semibold transition shadow-lg border border-cream/10"
           >
-            <BookOpen className="w-4 h-4" /> Magazine Studio
+            <Box className="w-4 h-4" /> Manage 3D Models
           </Link>
         </div>
       </div>
 
       {/* Metrics Row */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-6 gap-3 sm:gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-5 gap-3 sm:gap-4">
         {statCards.map((card, idx) => {
           const Icon = card.icon;
           return (
@@ -193,52 +192,50 @@ export default function AdminDashboard() {
         {/* Curation Workflow Assistant (1 col) */}
         <div className="bg-cream rounded-3xl p-6 sm:p-8 border border-forest/10 space-y-6 flex flex-col justify-between">
           <div>
-            <h3 className="font-display text-lg font-bold text-forest mb-2">Editorial Workflow</h3>
+            <h3 className="font-display text-lg font-bold text-forest mb-2">Curation Guidelines</h3>
             <p className="font-editorial italic text-xs text-forest/70 leading-relaxed mb-6">
-              To build a rich interactive magazine, follow these recommended publication steps:
+              Standard operating procedures for maintaining verified scientific catalog records:
             </p>
 
             <ol className="space-y-4 text-xs">
               <li className="flex items-start gap-3">
                 <span className="w-5 h-5 rounded-full bg-forest text-cream flex items-center justify-center font-bold text-[10px] shrink-0 mt-0.5">1</span>
                 <div>
-                  <strong className="text-forest">Define Categories</strong>
-                  <p className="text-forest/60 mt-0.5">Create taxonomic categories (Flora, Birds, Insects, etc.).</p>
+                  <strong className="text-forest">Classify Categories</strong>
+                  <p className="text-forest/60 mt-0.5">Organize taxonomy under Mammals, Birds, Reptiles, Amphibians, Insects, or Plants.</p>
                 </div>
               </li>
               <li className="flex items-start gap-3">
                 <span className="w-5 h-5 rounded-full bg-forest text-cream flex items-center justify-center font-bold text-[10px] shrink-0 mt-0.5">2</span>
                 <div>
-                  <strong className="text-forest">Add Species & Photographs</strong>
-                  <p className="text-forest/60 mt-0.5">Upload high-res images and set conservation details.</p>
+                  <strong className="text-forest">Field Photography</strong>
+                  <p className="text-forest/60 mt-0.5">Upload high-resolution authentic macro photographs with proper lighting.</p>
                 </div>
               </li>
               <li className="flex items-start gap-3">
                 <span className="w-5 h-5 rounded-full bg-forest text-cream flex items-center justify-center font-bold text-[10px] shrink-0 mt-0.5">3</span>
                 <div>
-                  <strong className="text-forest">Attach 3D Models</strong>
-                  <p className="text-forest/60 mt-0.5">Upload GLB/GLTF assets for interactive specimen rotation.</p>
+                  <strong className="text-forest">3D Specimen Models</strong>
+                  <p className="text-forest/60 mt-0.5">Attach .glb or .gltf 3D assets to empower interactive 360° inspection.</p>
                 </div>
               </li>
               <li className="flex items-start gap-3">
                 <span className="w-5 h-5 rounded-full bg-forest text-cream flex items-center justify-center font-bold text-[10px] shrink-0 mt-0.5">4</span>
                 <div>
-                  <strong className="text-forest">Assemble Flipbook</strong>
-                  <p className="text-forest/60 mt-0.5">Arrange pages in Magazine Builder and hit Publish.</p>
+                  <strong className="text-forest">Publish Observation</strong>
+                  <p className="text-forest/60 mt-0.5">Toggle publication status to make specimen visible across public catalogs.</p>
                 </div>
               </li>
             </ol>
           </div>
 
           <div className="pt-4 border-t border-forest/10">
-            <a
-              href="/magazine"
-              target="_blank"
-              rel="noreferrer"
+            <Link
+              to="/explore"
               className="w-full flex items-center justify-center gap-2 bg-forest text-cream text-xs font-semibold py-3 rounded-xl hover:bg-forest-light transition"
             >
-              <BookOpen className="w-4 h-4" /> Preview Live Magazine
-            </a>
+              <Leaf className="w-4 h-4" /> View Public Specimen Catalog
+            </Link>
           </div>
         </div>
       </div>

@@ -99,29 +99,36 @@ export default function SpeciesThreeDViewer({
     controls.autoRotateSpeed = 1.5;
     controlsRef.current = controls;
 
-    // 5. Studio Exhibition Lighting
-    // Ambient light with botanical tint
-    const ambientLight = new THREE.AmbientLight(0xd1fae5, 1.2);
+    // 5. Studio Exhibition Lighting for Photorealistic Insects
+    // Subtle ambient environmental bounce
+    const ambientLight = new THREE.AmbientLight(0xfff7ed, 0.9);
     scene.add(ambientLight);
 
-    // Key directional light (casting soft shadow)
-    const keyLight = new THREE.DirectionalLight(0xffffff, 2.4);
-    keyLight.position.set(3.5, 5, 3.5);
+    // Warm sun key light (casting soft ray-shadows)
+    const keyLight = new THREE.DirectionalLight(0xfffaf0, 3.2);
+    keyLight.position.set(4, 6, 4);
     keyLight.castShadow = true;
-    keyLight.shadow.mapSize.width = 1024;
-    keyLight.shadow.mapSize.height = 1024;
-    keyLight.shadow.bias = -0.001;
+    keyLight.shadow.mapSize.width = 2048;
+    keyLight.shadow.mapSize.height = 2048;
+    keyLight.shadow.bias = -0.0005;
     scene.add(keyLight);
 
-    // Emerald fill light from side
-    const fillLight = new THREE.DirectionalLight(0x10b981, 1.1);
+    // Emerald forest ground bounce light
+    const fillLight = new THREE.DirectionalLight(0x34d399, 1.4);
     fillLight.position.set(-4, 2, -2);
     scene.add(fillLight);
 
-    // Rim / Back light for highlighting edges
-    const rimLight = new THREE.DirectionalLight(0x6ee7b7, 1.8);
-    rimLight.position.set(0, -3, -4);
+    // Sharp specular rim light to accentuate wing edges & abdominal spines
+    const rimLight = new THREE.DirectionalLight(0xa7f3d0, 2.5);
+    rimLight.position.set(0, 4, -4);
     scene.add(rimLight);
+
+    // Soft spotlight highlighting specimen center
+    const spotLight = new THREE.SpotLight(0xffedd5, 2.0);
+    spotLight.position.set(0, 5, 2);
+    spotLight.angle = Math.PI / 4;
+    spotLight.penumbra = 0.8;
+    scene.add(spotLight);
 
     // Soft ground contact shadow plane
     const shadowGeo = new THREE.PlaneGeometry(5, 5);
@@ -174,13 +181,68 @@ export default function SpeciesThreeDViewer({
         loadedModel.position.z = -center.z * scale;
         baseModelY = loadedModel.position.y;
 
-        // Enable shadows and enhance materials
+        // Enable realistic lighting, biological materials, and insect specular reflections
         loadedModel.traverse((child) => {
           if (child.isMesh) {
             child.castShadow = true;
             child.receiveShadow = true;
-            if (child.material) {
-              child.material.roughness = Math.min(child.material.roughness ?? 0.5, 0.7);
+
+            const meshName = (child.name || '').toLowerCase();
+            const mat = child.material;
+
+            if (mat) {
+              const matName = (mat.name || '').toLowerCase();
+
+              // Check if mesh or material belongs to the wings
+              if (
+                matName.includes('wing') ||
+                matName.includes('membrane') ||
+                meshName.includes('wing') ||
+                meshName.includes('membrane')
+              ) {
+                // Photorealistic chitin wings: glass-like transparency with amber venation tint
+                mat.transparent = true;
+                mat.opacity = 0.58;
+                mat.roughness = 0.12;
+                mat.metalness = 0.15;
+                mat.clearcoat = 1.0;
+                mat.clearcoatRoughness = 0.08;
+                mat.transmission = 0.65;
+                mat.ior = 1.54; // Natural insect chitin refraction index
+                mat.side = THREE.DoubleSide;
+                mat.depthWrite = false;
+                mat.color = new THREE.Color(0xd49b42); // Authentic golden-amber chitin tint
+              } else if (
+                matName.includes('eye') ||
+                meshName.includes('eye')
+              ) {
+                // Compound ommatidia insect eyes: glossy dark iridescent sheen
+                mat.roughness = 0.08;
+                mat.metalness = 0.35;
+                mat.clearcoat = 1.0;
+                mat.clearcoatRoughness = 0.05;
+                mat.color = new THREE.Color(0x1a2e1d);
+              } else if (
+                matName.includes('leaf') ||
+                meshName.includes('leaf')
+              ) {
+                // Organic green vegetation leaf surface with soft subsurface feel
+                mat.roughness = 0.55;
+                mat.metalness = 0.02;
+                mat.clearcoat = 0.25;
+                mat.clearcoatRoughness = 0.4;
+                mat.color = new THREE.Color(0x23531b);
+              } else {
+                // Exoskeleton / thorax / abdomen / legs: glossy chitinous cuticle
+                mat.roughness = 0.32;
+                mat.metalness = 0.22;
+                mat.clearcoat = 0.85;
+                mat.clearcoatRoughness = 0.18;
+                if (mat.color) {
+                  // Enhance rich natural amber color
+                  mat.color = new THREE.Color(0x9e4e16);
+                }
+              }
             }
           }
         });

@@ -22,7 +22,6 @@ const navItems = [
   { to: '/secure-admin-portal/categories', icon: FolderOpen, label: 'Categories' },
   { to: '/secure-admin-portal/photos', icon: ImageIcon, label: 'Photo Library' },
   { to: '/secure-admin-portal/models', icon: Box, label: '3D Models' },
-  { to: '/secure-admin-portal/magazine', icon: BookOpen, label: 'Magazine Builder' },
   { to: '/secure-admin-portal/contributors', icon: Users, label: 'Manage Contributors' },
 ];
 
