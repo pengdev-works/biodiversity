@@ -50,6 +50,22 @@ export default function HomePage() {
         </div>
 
         <div className="relative z-10 text-center px-4 max-w-4xl mx-auto animate-fade-in pt-16 sm:pt-0">
+          {/* Institutional Brand Crest */}
+          <div className="flex flex-col items-center justify-center mb-6">
+            <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-white p-1 shadow-2xl border-2 border-emerald-400/50 mb-3 hover:scale-105 transition-transform">
+              <img
+                src="/images/university-of-abra-seal.png"
+                alt="University of Abra Official Seal"
+                className="w-full h-full object-contain"
+              />
+            </div>
+            <img
+              src="/images/uabiosphere-text-logo.png"
+              alt="UABioSphere"
+              className="h-14 sm:h-20 object-contain filter drop-shadow-[0_4px_16px_rgba(0,0,0,0.8)]"
+            />
+          </div>
+
           {/* Floating Pill Badge */}
           <div className="inline-flex items-center gap-2.5 sm:gap-3 bg-black/40 backdrop-blur-md border border-cream/20 px-3.5 sm:px-4 py-1.5 rounded-full mb-6 text-cream/90 text-xs shadow-xl max-w-full">
             <span className="relative flex h-2 w-2 shrink-0">
@@ -58,15 +74,12 @@ export default function HomePage() {
             </span>
             <Leaf className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
             <span className="text-emerald-300 text-[10px] sm:text-xs font-semibold tracking-widest uppercase truncate">
-              Natural Sciences Field Research Portal
+              University of Abra • Natural Sciences Research Portal
             </span>
           </div>
 
-          <h1 className="font-display text-4xl sm:text-6xl md:text-8xl font-black text-cream mb-4 sm:mb-6 leading-none tracking-tight drop-shadow-lg">
-            BIO<span className="text-emerald-400">DIVERSITY</span>
-          </h1>
           <p className="text-cream/90 text-base sm:text-xl md:text-2xl font-editorial italic mb-8 sm:mb-10 max-w-2xl mx-auto drop-shadow-md leading-relaxed px-2">
-            Discover the Hidden World of Living Nature & Ecological Heritage
+            Discover the Hidden World of Living Nature & Ecological Heritage in Abra
           </p>
 
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center w-full max-w-md mx-auto sm:max-w-none">

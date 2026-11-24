@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext.jsx';
 import Navbar from './components/Navbar.jsx';
+import SystemSplashScreen from './components/SystemSplashScreen.jsx';
 import HomePage from './pages/HomePage.jsx';
 import ExplorePage from './pages/ExplorePage.jsx';
 import SpeciesDetailPage from './pages/SpeciesDetailPage.jsx';
@@ -30,6 +31,7 @@ function PublicLayout({ children }) {
 export default function App() {
   return (
     <AuthProvider>
+      <SystemSplashScreen />
       <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
         <Routes>
           {/* Public routes */}

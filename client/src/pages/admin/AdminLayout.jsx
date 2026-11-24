@@ -53,15 +53,23 @@ export default function AdminLayout() {
     <div className="flex h-screen bg-paper overflow-hidden">
       {/* Desktop Sidebar */}
       <aside className="hidden md:flex flex-col w-64 bg-forest-dark text-cream border-r border-cream/10 shrink-0">
-        <div className="p-6 border-b border-cream/10 flex items-center justify-between">
-          <div className="flex items-center gap-2.5">
-            <Leaf className="w-6 h-6 text-sage" />
-            <div>
-              <h1 className="font-display font-bold text-lg leading-tight tracking-wide">
-                BIODIVERSITY
-              </h1>
-              <span className="text-[10px] text-sage uppercase tracking-widest font-mono">
-                Admin Studio
+        <div className="p-5 border-b border-cream/10">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-full bg-white p-0.5 shrink-0 shadow-md">
+              <img
+                src="/images/university-of-abra-seal.png"
+                alt="University of Abra Seal"
+                className="w-full h-full object-contain"
+              />
+            </div>
+            <div className="min-w-0">
+              <img
+                src="/images/uabiosphere-text-logo.png"
+                alt="UABioSphere"
+                className="h-6 object-contain"
+              />
+              <span className="text-[9px] text-sage uppercase tracking-widest font-mono block">
+                University of Abra
               </span>
             </div>
           </div>
