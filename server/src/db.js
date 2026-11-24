@@ -131,11 +131,26 @@ CREATE TABLE IF NOT EXISTS contributors (
 `;
 
 export async function query(sql, params = []) {
-  const result = await pgPool.query(sql, params);
-  return result;
+  try {
+    const result = await pgPool.query(sql, params);
+    return result;
+  } catch (err) {
+    console.error('[Neon Database Query Error]:', err.message);
+    if (err.message && err.message.includes('quota')) {
+      return { rows: [], rowCount: 0, quotaExceeded: true };
+    }
+    throw err;
+  }
 }
 
 export async function initializeDatabase() {
-  await pgPool.query(pgSchema);
-  console.log('✓ Neon PostgreSQL database connected & tables verified');
+  try {
+    await pgPool.query(pgSchema);
+    console.log('✓ Neon PostgreSQL database connected & tables verified');
+  } catch (err) {
+    console.warn('⚠️ [Neon Warning] Could not verify schema on startup:', err.message);
+    if (err.message && err.message.includes('quota')) {
+      console.warn('⚠️ Neon free-tier quota exceeded. Server will remain running and serve cached/static responses until quota resets or upgraded.');
+    }
+  }
 }

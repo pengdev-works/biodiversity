@@ -102,6 +102,11 @@ app.use((err, req, res, next) => {
 async function startServer() {
   try {
     await initializeDatabase();
+  } catch (dbErr) {
+    console.warn('⚠️ Non-fatal database initialization warning:', dbErr.message);
+  }
+
+  try {
     const server = app.listen(PORT, () => {
       console.log(`✓ BIODIVERSITY API Server listening on port ${PORT}`);
     });
@@ -115,7 +120,7 @@ async function startServer() {
       }
     });
   } catch (err) {
-    console.error('Failed to initialize server:', err);
+    console.error('Failed to start HTTP server:', err);
     process.exit(1);
   }
 }
