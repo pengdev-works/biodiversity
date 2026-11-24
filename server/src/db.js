@@ -14,9 +14,9 @@ dotenv.config({ path: path.join(__dirname, '..', '.env') });
 
 const { Pool } = pg;
 
-const NEON_DEFAULT_URL = 'postgresql://neondb_owner:npg_n8WtJ5KIdowQ@ep-little-cherry-aok5bhbb-pooler.c-2.ap-southeast-1.aws.neon.tech/neondb?sslmode=require';
+const LOCAL_DEFAULT_URL = 'postgresql://postgres:paragas2001@localhost:5432/bio';
 
-const connectionString = process.env.DATABASE_URL || NEON_DEFAULT_URL;
+const connectionString = process.env.DATABASE_URL || LOCAL_DEFAULT_URL;
 const isLocalhost = Boolean(connectionString && (connectionString.includes('localhost') || connectionString.includes('127.0.0.1')));
 
 const pgPool = new Pool({
@@ -32,6 +32,7 @@ pgPool.on('error', (err) => {
 });
 
 console.log(`✓ Initialized PostgreSQL Pool (${isLocalhost ? 'Localhost / pgAdmin 4' : 'Cloud / Neon'})`);
+console.log(`✓ Database Target: ${connectionString.split('@')[1] || 'localhost'}`);
 
 const pgSchema = `
 CREATE TABLE IF NOT EXISTS admin_users (
@@ -136,7 +137,7 @@ export async function query(sql, params = []) {
     const result = await pgPool.query(sql, params);
     return result;
   } catch (err) {
-    console.error('[Neon Database Query Error]:', err.message);
+    console.error('[Database Query Error]:', err.message);
     if (err.message && err.message.includes('quota')) {
       return { rows: [], rowCount: 0, quotaExceeded: true };
     }
@@ -147,11 +148,8 @@ export async function query(sql, params = []) {
 export async function initializeDatabase() {
   try {
     await pgPool.query(pgSchema);
-    console.log('✓ Neon PostgreSQL database connected & tables verified');
+    console.log('✓ PostgreSQL database connected & tables verified');
   } catch (err) {
-    console.warn('⚠️ [Neon Warning] Could not verify schema on startup:', err.message);
-    if (err.message && err.message.includes('quota')) {
-      console.warn('⚠️ Neon free-tier quota exceeded. Server will remain running and serve cached/static responses until quota resets or upgraded.');
-    }
+    console.warn('⚠️ [PostgreSQL Warning] Could not verify schema on startup:', err.message);
   }
 }
