@@ -88,15 +88,15 @@ export default function HomePage() {
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center w-full max-w-md mx-auto sm:max-w-none">
             <Link
               to="/explore"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#1b4332] hover:bg-[#2d6a4f] text-white px-7 sm:px-9 py-3.5 sm:py-4 rounded-full font-bold transition-all shadow-xl hover:scale-102 text-sm sm:text-base border border-emerald-400/30"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#1b4332] hover:bg-[#2d6a4f] text-white px-8 sm:px-10 py-3.5 sm:py-4 rounded-full font-bold transition-all shadow-xl hover:scale-102 text-sm sm:text-base border border-emerald-400/30"
             >
               <Leaf className="w-5 h-5 shrink-0" /> Explore Species Catalog
             </Link>
             <Link
-              to="/locations"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-black/40 backdrop-blur-md border-2 border-cream/30 text-cream px-6 sm:px-8 py-3.5 sm:py-4 rounded-full font-semibold hover:bg-white/10 active:scale-95 transition-all shadow-lg text-sm sm:text-base"
+              to="/about"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-black/40 backdrop-blur-md border-2 border-cream/30 text-cream px-7 sm:px-9 py-3.5 sm:py-4 rounded-full font-semibold hover:bg-white/10 active:scale-95 transition-all shadow-lg text-sm sm:text-base"
             >
-              <Globe2 className="w-5 h-5 shrink-0" /> Habitat Locations
+              <Globe2 className="w-5 h-5 shrink-0" /> About The Project
             </Link>
           </div>
         </div>
@@ -118,10 +118,9 @@ export default function HomePage() {
               'radial-gradient(ellipse at 50% 50%, rgba(117,139,112,0.3) 0%, transparent 70%)',
           }}
         />
-        <div className="max-w-7xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-6 text-center relative z-10">
+        <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 sm:grid-cols-3 gap-6 text-center relative z-10">
           {[
             { icon: <Dna className="w-5 h-5 text-emerald-400" />, label: 'Species Documented', val: 'Taxa Records' },
-            { icon: <Globe2 className="w-5 h-5 text-emerald-400" />, label: 'Locations Mapped', val: 'Field Coordinates' },
             { icon: <Camera className="w-5 h-5 text-emerald-400" />, label: 'Photographs', val: 'Macro & Habitat' },
             { icon: <Box className="w-5 h-5 text-emerald-400" />, label: '3D Specimen Models', val: 'Interactive 360°' },
           ].map((s, i) => (
