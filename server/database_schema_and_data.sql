@@ -129,10 +129,9 @@ CREATE TABLE contributors (
 -- 3. SEED INITIAL DATA
 -- =============================================================================
 
--- Default Administrator (password: admin123)
--- bcrypt hash for 'admin123': $2a$10$w8TlhZ1QY5F10qg1ZpG77OMvK9N1Vv5E9R6vS7n3q2u9d7b5t0a2G
+-- Default Administrator (username: admin | password: admin123)
 INSERT INTO admin_users (username, email, password_hash, role)
-VALUES ('admin', 'admin@example.com', '$2a$10$092008E19P9a1cZ0f612ye6hV2eWqMhY9yq0eMhT5zGZ604zV613.', 'admin')
+VALUES ('admin', 'admin@example.com', '$2a$10$HmWwgLq3dJ.F92ZvYYSSf.fyNg.iI0Eld3Vj21d73RjraCA4yuDi2', 'admin')
 ON CONFLICT (username) DO NOTHING;
 
 -- Categories
