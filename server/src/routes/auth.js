@@ -18,24 +18,34 @@ router.post('/login', loginRateLimiter, async (req, res) => {
   try {
     const { username, password } = req.body;
 
-    if (!username || !password) {
+    const cleanUsername = String(username || '').trim();
+    const cleanPassword = String(password || '').trim();
+
+    if (!cleanUsername || !cleanPassword) {
       return res.status(400).json({ error: 'Username and password are required' });
     }
 
-    // Look up user
+    // Look up user (case-insensitive username matching)
     const result = await query(
-      'SELECT * FROM admin_users WHERE username = $1',
-      [username]
+      'SELECT * FROM admin_users WHERE LOWER(username) = LOWER($1)',
+      [cleanUsername]
     );
+
+    if (result.quotaExceeded) {
+      console.error('[POST /auth/login] Database quota exceeded on cloud database.');
+      return res.status(503).json({ error: 'Database service unavailable or quota exceeded on cloud provider.' });
+    }
 
     const user = result.rows[0];
     if (!user) {
+      console.warn(`[Login Failed] User not found: "${cleanUsername}"`);
       return res.status(401).json({ error: 'Invalid credentials' });
     }
 
     // Verify password
-    const valid = await bcrypt.compare(password, user.password_hash);
+    const valid = await bcrypt.compare(cleanPassword, user.password_hash);
     if (!valid) {
+      console.warn(`[Login Failed] Password mismatch for: "${cleanUsername}"`);
       return res.status(401).json({ error: 'Invalid credentials' });
     }
 

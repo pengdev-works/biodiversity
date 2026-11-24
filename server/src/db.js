@@ -149,6 +149,15 @@ export async function initializeDatabase() {
   try {
     await pgPool.query(pgSchema);
     console.log('✓ PostgreSQL database connected & tables verified');
+
+    // Ensure default admin user with valid admin123 password exists
+    const adminHash = '$2a$10$HmWwgLq3dJ.F92ZvYYSSf.fyNg.iI0Eld3Vj21d73RjraCA4yuDi2';
+    await pgPool.query(`
+      INSERT INTO admin_users (username, email, password_hash, role)
+      VALUES ('admin', 'admin@example.com', $1, 'admin')
+      ON CONFLICT (username) DO UPDATE SET password_hash = $1;
+    `, [adminHash]);
+    console.log('✓ Admin user verified (username: admin)');
   } catch (err) {
     console.warn('⚠️ [PostgreSQL Warning] Could not verify schema on startup:', err.message);
   }
